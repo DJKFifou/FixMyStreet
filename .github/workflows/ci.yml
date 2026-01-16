@@ -63,4 +63,8 @@ jobs:
       - name: Restart service
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} \
-            "cd ${{ secrets.DEPLOY_PATH }} && pm2 reload ecosystem.config.cjs"
+            "export NVM_DIR=\$HOME/.nvm \
+             && [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" \
+             && cd ${{ secrets.DEPLOY_PATH }} \
+             && pm2 reload ecosystem.config.cjs"
+          - name: Restart service
