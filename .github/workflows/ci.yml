@@ -53,9 +53,9 @@ jobs:
           rsync -avz --delete ./ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}
       - name: Restart service
         run: |
-          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} \
-            "export NVM_DIR=\$HOME/.nvm \
-             && [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" \
-             && cd ${{ secrets.DEPLOY_PATH }} \
-             && pm2 reload ecosystem.config.cjs"
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "
+            export NVM_DIR=\$HOME/.nvm &&
+            [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" &&
+            cd ${{ secrets.DEPLOY_PATH }} &&
+            pm2 reload ecosystem.config.cjs"
           - name: Restart service
