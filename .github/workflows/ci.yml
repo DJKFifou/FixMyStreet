@@ -1,4 +1,4 @@
-name: Next.js Standalone
+name: FixMyStreet
 
 on:
   push:
@@ -24,7 +24,6 @@ jobs:
           name: build-artifacts
           path: |
             .next/standalone
-            .next/static
             public
             ecosystem.config.cjs
           retention-days: 1
