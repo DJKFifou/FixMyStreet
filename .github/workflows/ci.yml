@@ -37,6 +37,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
+      - name: List downloaded artifacts
+        run: ls -R
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
