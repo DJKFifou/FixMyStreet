@@ -25,18 +25,18 @@ jobs:
       - name: Verify build output
         run: |
           echo "Checking .next directory..."
-          ls -la .next || echo ".next not found!"
+          ls -la .next
           echo "Checking public directory..."
-          ls -la public || echo "public not found!"
+          ls -la public
 
       - name: Create artifact directory
         run: |
           mkdir -p artifact-staging
-          cp -r .next artifact-staging/ || echo "No .next to copy"
-          cp -r public artifact-staging/ || echo "No public to copy"
+          cp -r .next artifact-staging/
+          cp -r public artifact-staging/
           cp package.json artifact-staging/
           cp package-lock.json artifact-staging/
-          cp ecosystem.config.cjs artifact-staging/ || echo "No ecosystem.config.cjs to copy"
+          cp ecosystem.config.cjs artifact-staging/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -58,7 +58,7 @@ jobs:
 
       - name: Verify downloaded files
         run: |
-          echo "Downloaded files:"
+          echo "=== Downloaded files ==="
           ls -laR ./build
 
       - name: Setup SSH
@@ -73,13 +73,24 @@ jobs:
           sudo apt update
           sudo apt install rsync -y
 
+      - name: Verify VPS directory before deploy
+        run: |
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "
+            echo '=== Before deployment ===' &&
+            ls -la ${{ secrets.DEPLOY_PATH }} || echo 'Directory does not exist yet'"
+
       - name: Deploy to VPS
         run: |
           rsync -avz --delete \
             --exclude 'node_modules' \
             --exclude '.env*' \
-            --exclude 'ecosystem.config.cjs' \
             ./build/ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}/
+
+      - name: Verify VPS directory after deploy
+        run: |
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "
+            echo '=== After deployment ===' &&
+            ls -laR ${{ secrets.DEPLOY_PATH }}"
 
       - name: Install dependencies and restart service
         run: |
