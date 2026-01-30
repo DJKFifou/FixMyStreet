@@ -49,7 +49,7 @@ jobs:
           sudo apt install rsync -y
       - name: Deploy to VPS
         run: |
-          rsync -avz --exclude 'ecosystem.config.cjs' ./ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}
+          rsync -avz ./ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}
       - name: Restart service
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "
