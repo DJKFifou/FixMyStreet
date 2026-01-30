@@ -27,8 +27,10 @@ jobs:
         with:
           name: build-artifacts
           path: |
-            .next/**
-            public/**
+            .next
+            public
+            package.json
+            package-lock.json
             ecosystem.config.cjs
           retention-days: 1
 
@@ -41,10 +43,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: ./
+          path: ./build
 
       - name: Verify downloaded files
-        run: ls -R
+        run: ls -laR ./build
 
       - name: Setup SSH
         run: |
@@ -60,12 +62,17 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          rsync -avz --exclude 'ecosystem.config.cjs' ./ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}
+          rsync -avz --delete \
+            --exclude 'node_modules' \
+            --exclude '.env*' \
+            --exclude 'ecosystem.config.cjs' \
+            ./build/ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}/
 
-      - name: Restart service
+      - name: Install dependencies and restart service
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "
             export NVM_DIR=\$HOME/.nvm &&
             [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\" &&
             cd ${{ secrets.DEPLOY_PATH }} &&
+            npm ci --production &&
             pm2 reload ecosystem.config.cjs"
