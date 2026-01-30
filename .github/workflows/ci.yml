@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          rsync -avz --exclude 'ecosystem.config.cjs' ./ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}
+          rsync -avz .next/standalone/fixmystreet/ ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:/var/www/fixmystreet/.next/standalone/fixmystreet/
 
       - name: Restart service
         run: |
