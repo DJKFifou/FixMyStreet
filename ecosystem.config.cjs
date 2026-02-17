@@ -6,6 +6,7 @@ module.exports = {
       args: "start",
       cwd: "/var/www/FixMyStreet",
       instances: 1,
+      exec_mode: "fork",
       autorestart: true,
       watch: false,
       env: {
