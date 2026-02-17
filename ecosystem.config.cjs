@@ -9,6 +9,7 @@ module.exports = {
       exec_mode: "fork",
       autorestart: true,
       watch: false,
+      env_file: "/var/www/FixMyStreet/.env.local",
       env: {
         NODE_ENV: "production",
         PORT: 3006,
