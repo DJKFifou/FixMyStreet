@@ -28,8 +28,8 @@ jobs:
           name: build-artifacts
           include-hidden-files: true
           path: |
-            .next/
-            public/
+            .next/**
+            public/**
             package.json
             package-lock.json
             ecosystem.config.cjs
@@ -43,10 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: ./artifact
-
-      - name: Debug - List downloaded files
-        run: ls -la ./artifact && ls -la ./artifact/.next || echo "PAS DE .next"
+          path: ./
 
       - name: Setup SSH
         run: |
@@ -61,11 +58,11 @@ jobs:
       - name: Deploy files to VPS
         run: |
           rsync -avz --delete \
-            ./artifact/.next/ \
-            ./artifact/public/ \
-            ./artifact/package.json \
-            ./artifact/package-lock.json \
-            ./artifact/ecosystem.config.cjs \
+            .next/ \
+            public/ \
+            package.json \
+            package-lock.json \
+            ecosystem.config.cjs \
             ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:${{ secrets.DEPLOY_PATH }}/
 
       - name: Restart service
