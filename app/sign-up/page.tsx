@@ -14,9 +14,9 @@ export default function Page() {
       <div className="grow flex flex-col gap-4 w-full items-center justify-end px-6 py-12 md:py-6">
         <div className="grow flex flex-col items-center justify-center w-3/4">
           <h1 className="text-2xl text-center mb-4">Enregistrement</h1>
-          <p className="text-center">
-            Lorem ipsum dolor sit amet, consectetur.
-          </p>
+          <small className="text-sm text-center text-gray-500">
+            L&apos;enregistrement est suivi d&apos;une validation par mail
+          </small>
         </div>
         <div className="w-full max-w-sm">
           <SignUpForm />

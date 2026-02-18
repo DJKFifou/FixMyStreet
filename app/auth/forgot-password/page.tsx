@@ -48,9 +48,9 @@ export default function Page() {
       <div className="grow flex flex-col gap-4 w-full items-center justify-end px-6 py-12 md:py-6">
         <div className="grow flex flex-col items-center justify-center w-3/4">
           <h1 className="text-2xl text-center mb-4">Réinitialiser votre mot de passe</h1>
-          <p className="text-center">
+          <small className="text-sm text-center text-gray-500">
             Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe
-          </p>
+          </small>
         </div>
         <div className="w-full max-w-sm">
           <ForgotPasswordForm setSuccess={setSuccess} />
