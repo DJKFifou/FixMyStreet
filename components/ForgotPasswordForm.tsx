@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import IconInput from './form/IconInput';
+import PrimaryButton from './ui/PrimaryButton';
 import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 
@@ -45,13 +46,9 @@ export function ForgotPasswordForm({ setSuccess }: { setSuccess: (success: boole
               icon="email"
             />
             {error && <p className="text-sm text-red-500">{error}</p>}
-            <button
-              type="submit"
-              className="w-full border border-foreground bg-foreground text-white rounded-md p-2"
-              disabled={isLoading}
-            >
+            <PrimaryButton type="submit" disabled={isLoading}>
               {isLoading ? "Envoi..." : "Envoyer le lien de réinitialisation"}
-            </button>
+            </PrimaryButton>
           </div>
         </form>
         <div className="w-full">
