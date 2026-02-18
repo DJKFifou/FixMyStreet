@@ -1,13 +1,19 @@
 module.exports = {
-    apps: [
-        {
-            name: 'fixmystreet',
-            cwd: '/var/www/fixmystreet',
-            script: 'node_modules/next/dist/bin/next',
-            args: 'start -p 3006',
-            env: {
-                NODE_ENV: 'production',
-            }
-        }
-    ]
+  apps: [
+    {
+      name: "FixMyStreet",
+      script: "node_modules/.bin/next",
+      args: "start",
+      cwd: "/var/www/FixMyStreet",
+      instances: 1,
+      exec_mode: "fork",
+      autorestart: true,
+      watch: false,
+      env_file: "/var/www/FixMyStreet/.env.local",
+      env: {
+        NODE_ENV: "production",
+        PORT: 3006,
+      },
+    },
+  ],
 };
