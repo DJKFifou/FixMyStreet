@@ -10,9 +10,19 @@ import MandatoryAsterisk from "../ui/MandatoryAsterisk";
 const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => void }) => {
   const supabase = createClient();
   const router = useRouter();
+  const [askCameraPermission, setAskCameraPermission] = useState<boolean>(false);
   const [picture, setPicture] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handlePictureInputClick = async (e: React.MouseEvent<HTMLInputElement>) => {
+    if (askCameraPermission) return;
+
+    e.preventDefault();
+    await navigator.mediaDevices.getUserMedia({ video: true });
+    setAskCameraPermission(true);
+    (e.target as HTMLInputElement).click();
+  }
 
   const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
@@ -62,6 +72,7 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
           type="file"
           accept="image/jpeg, image/png, image/jpg"
           onChange={handlePictureChange}
+          onClick={handlePictureInputClick}
           capture="environment"
           className="hidden"
           disabled={loading}
