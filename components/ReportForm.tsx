@@ -1,7 +1,7 @@
 'use client';
 
 import PrimaryButton from './ui/PrimaryButton';
-import { createClient } from '@/lib/supabase/client';
+import { createClient, withUser } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import TextAreaWithLengthIndicator from './form/TextAreaWithLengthIndicator';
@@ -13,13 +13,12 @@ const ReportForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return router.push('/login');
+    await withUser(supabase, router, async (user) => {
+      const { error } = await supabase.from('reports').insert({ author_id: user.id, description });
+      if (error) throw error;
 
-    const { error } = await supabase.from('reports').insert({ author_id: user.id, description });
-    if (error) throw error;
-
-    router.push('/form-submitted');
+      router.push('/form-submitted');
+    });
   };
 
   return (
