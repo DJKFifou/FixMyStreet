@@ -4,7 +4,7 @@ const PrimaryButton = ({
   children,
   onClick,
 }: {
-  type?: "button" | "submit" | "reset";
+  type: "button" | "submit" | "reset";
   disabled?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
