@@ -5,6 +5,8 @@ import { useState } from "react";
 
 export default function LocationButton() {
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+
   const locationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -18,6 +20,7 @@ export default function LocationButton() {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude : ${crd.longitude}`);
     console.log(`La précision est de ${crd.accuracy} mètres.`);
+    setMessage("Géolocalisation réussie !");
   }
 
   function locationError(err: GeolocationPositionError) {
@@ -35,9 +38,13 @@ export default function LocationButton() {
 
   return (
     <div>
-      <PrimaryButton type="button" onClick={handleClickLocation}>
-        Je me géolocalise
-      </PrimaryButton>
+      {message ? (
+        <p className="text-green-500">{message}</p>
+      ) : (
+        <PrimaryButton type="button" onClick={handleClickLocation}>
+          Je me géolocalise
+        </PrimaryButton>
+      )}
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );
