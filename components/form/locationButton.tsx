@@ -3,7 +3,13 @@
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import { useState } from "react";
 
-export default function LocationButton() {
+export default function LocationButton({
+  setLat,
+  setLon,
+}: {
+  setLat: (lat: number) => void;
+  setLon: (lon: number) => void;
+}) {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -16,15 +22,12 @@ export default function LocationButton() {
   function locationSuccess(pos: GeolocationPosition) {
     const crd = pos.coords;
 
-    console.log("Votre position actuelle est :");
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude : ${crd.longitude}`);
-    console.log(`La précision est de ${crd.accuracy} mètres.`);
+    setLat(crd.latitude);
+    setLon(crd.longitude);
     setMessage("Géolocalisation réussie !");
   }
 
   function locationError(err: GeolocationPositionError) {
-    console.warn(`ERREUR (${err.code}): ${err.message}`);
     setError(`Erreur de géolocalisation : ${err.message}`);
   }
 
