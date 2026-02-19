@@ -74,7 +74,7 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
           alt="Picture"
           width={100}
           height={100}
-          className="w-25 h-auto object-cover"
+          className="h-25 w-fit object-cover"
         />
       )}
       {error && <p className="w-full text-right text-red-500">{error}</p>}
