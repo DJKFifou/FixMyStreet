@@ -9,7 +9,7 @@ const Page = () => {
         <small className="text-sm text-center text-gray-500">
           Nous vous remercions de votre contribution.
         </small>
-        <Redirector href="/" time={500} additionalClasses="text-center text-gray-500" />
+        <Redirector href="/" time={5} additionalClasses="text-center text-gray-500" />
       </div>
       <SecondaryLink href="/">Retour à l&apos;accueil</SecondaryLink>
     </div>
