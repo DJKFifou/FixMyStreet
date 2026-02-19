@@ -1,10 +1,11 @@
 'use client';
 
 import PrimaryButton from './ui/PrimaryButton';
+import PictureDropzone from './form/PictureDropzone';
+import TextAreaWithLengthIndicator from './form/TextAreaWithLengthIndicator';
 import { createClient, withUser } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import TextAreaWithLengthIndicator from './form/TextAreaWithLengthIndicator';
 
 const ReportForm = () => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const ReportForm = () => {
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <PictureDropzone />
       <TextAreaWithLengthIndicator
         label="Description"
         value={description}

@@ -9,7 +9,7 @@ const TextAreaWithLengthIndicator = (
   }
 ) => {
   return (
-    <label className="relative flex flex-col gap-2 text-lg text-gray-600">
+    <label className="relative flex flex-col gap-2 text-lg">
       {label}
       <textarea
         value={value}
