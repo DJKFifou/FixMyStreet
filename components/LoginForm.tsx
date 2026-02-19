@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import IconInput from './form/IconInput';
+import PrimaryButton from './ui/PrimaryButton';
+import SecondaryLink from './ui/SecondaryLink';
 import PasswordInput from './form/PasswordInput';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -68,22 +70,13 @@ export function LoginForm() {
             </Link>
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
-          <button
-            type="submit"
-            className="w-full border border-foreground bg-foreground text-white rounded-md p-2"
-            disabled={isLoading}
-          >
+          <PrimaryButton type="submit" disabled={isLoading}>
             {isLoading ? "Connexion..." : "Se connecter"}
-          </button>
+          </PrimaryButton>
         </div>
       </form>
       <div className="w-full">
-        <Link
-          href="/sign-up"
-          className="block text-center w-full border border-foreground rounded-md p-2"
-        >
-          S&apos;enregistrer
-        </Link>
+        <SecondaryLink href="/sign-up">S&apos;enregistrer</SecondaryLink>
       </div>
     </div>
   );

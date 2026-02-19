@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import PrimaryButton from './ui/PrimaryButton';
+import SecondaryLink from './ui/SecondaryLink';
 import PasswordInput from './form/PasswordInput';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -43,22 +44,13 @@ export function UpdatePasswordForm() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           />
           {error && <p className="text-sm text-red-500">{error}</p>}
-          <button
-            type="submit"
-            className="w-full border border-foreground bg-foreground text-white rounded-md p-2"
-            disabled={isLoading}
-          >
+          <PrimaryButton type="submit" disabled={isLoading}>
             {isLoading ? "Enregistrement..." : "Enregistrer le nouveau mot de passe"}
-          </button>
+          </PrimaryButton>
         </div>
       </form>
       <div className="w-full">
-        <Link
-          href="/login"
-          className="block text-center w-full border border-foreground rounded-md p-2"
-        >
-          Se connecter
-        </Link>
+        <SecondaryLink href="/login">Se connecter</SecondaryLink>
       </div>
     </div>
   );
