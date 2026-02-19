@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
 
-const PictureDropzone = () => {
+const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => void }) => {
   const supabase = createClient();
   const router = useRouter();
   const [picture, setPicture] = useState<File | null>(null);
@@ -37,6 +37,9 @@ const PictureDropzone = () => {
         setError(error.message);
       } else {
         setPicture(file);
+
+        const { data: { publicUrl }} = supabase.storage.from('report_images').getPublicUrl(filePath);
+        setPictureUrl(publicUrl);
       }
     });
   }
