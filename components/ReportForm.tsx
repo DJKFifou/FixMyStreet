@@ -16,7 +16,7 @@ const ReportForm = () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return router.push('/login');
 
-    const { error } = await supabase.from("reports").insert({ author_id: user.id, description });
+    const { error } = await supabase.from('reports').insert({ author_id: user.id, description });
     if (error) throw error;
 
     router.push('/form-submitted');

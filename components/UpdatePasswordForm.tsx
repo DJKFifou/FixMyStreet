@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import PrimaryButton from './ui/PrimaryButton';
+import SecondaryLink from './ui/SecondaryLink';
 import PasswordInput from './form/PasswordInput';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -50,12 +50,7 @@ export function UpdatePasswordForm() {
         </div>
       </form>
       <div className="w-full">
-        <Link
-          href="/login"
-          className="block text-center w-full border border-foreground rounded-md p-2"
-        >
-          Se connecter
-        </Link>
+        <SecondaryLink href="/login">Se connecter</SecondaryLink>
       </div>
     </div>
   );

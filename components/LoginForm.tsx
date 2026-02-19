@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import IconInput from './form/IconInput';
 import PrimaryButton from './ui/PrimaryButton';
+import SecondaryLink from './ui/SecondaryLink';
 import PasswordInput from './form/PasswordInput';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -75,12 +76,7 @@ export function LoginForm() {
         </div>
       </form>
       <div className="w-full">
-        <Link
-          href="/sign-up"
-          className="block text-center w-full border border-foreground rounded-md p-2"
-        >
-          S&apos;enregistrer
-        </Link>
+        <SecondaryLink href="/sign-up">S&apos;enregistrer</SecondaryLink>
       </div>
     </div>
   );
