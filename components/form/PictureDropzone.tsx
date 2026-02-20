@@ -62,7 +62,6 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
           type="file"
           accept="image/jpeg, image/png, image/jpg"
           onChange={handlePictureChange}
-          capture="environment"
           className="hidden"
           disabled={loading}
         />
