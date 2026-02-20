@@ -3,6 +3,7 @@
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
 import getAddressFromCoordinates from "@/components/utils/getAddressFromCoordinates";
+import Error from "@/components/ui/Error";
 import { useState } from "react";
 
 export default function LocationButton({
@@ -91,7 +92,7 @@ export default function LocationButton({
           <i className="material-symbols-outlined">location_on</i>
         )}
       </PrimaryButton>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <Error message={error} />}
     </div>
   );
 }

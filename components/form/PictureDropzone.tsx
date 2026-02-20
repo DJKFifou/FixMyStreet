@@ -6,6 +6,7 @@ import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
+import Error from "../ui/Error";
 
 const PictureDropzone = ({
   setPictureUrl,
@@ -87,7 +88,7 @@ const PictureDropzone = ({
           className="h-25 w-fit object-cover"
         />
       )}
-      {error && <p className="w-full text-right text-red-500">{error}</p>}
+      {error && <Error message={error} />}
     </div>
   );
 };
