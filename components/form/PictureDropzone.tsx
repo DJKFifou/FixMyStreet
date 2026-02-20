@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import LoadingImage from "../ui/LoadingImage";
@@ -6,8 +6,13 @@ import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
+import Error from "../ui/Error";
 
-const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => void }) => {
+const PictureDropzone = ({
+  setPictureUrl,
+}: {
+  setPictureUrl: (url: string) => void;
+}) => {
   const supabase = createClient();
   const router = useRouter();
   const [picture, setPicture] = useState<File | null>(null);
@@ -21,16 +26,18 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
 
     const file = e.target.files?.[0];
     uploadFile(file);
-  }
+  };
 
   const uploadFile = async (file?: File) => {
     if (!file) return;
-  
+
     await withUser(supabase, router, async ({ user }) => {
       const fileName = file.name;
-      const fileExtension = fileName.slice(fileName.lastIndexOf('.') + 1);
+      const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
       const filePath = `${user.id}/${crypto.randomUUID()}.${fileExtension}`;
-      const { error } = await supabase.storage.from('report_images').upload(filePath, file);
+      const { error } = await supabase.storage
+        .from("report_images")
+        .upload(filePath, file);
       setLoading(false);
 
       if (error) {
@@ -38,21 +45,26 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
       } else {
         setPicture(file);
 
-        const { data: { publicUrl }} = supabase.storage.from('report_images').getPublicUrl(filePath);
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from("report_images").getPublicUrl(filePath);
         setPictureUrl(publicUrl);
       }
     });
-  }
+  };
 
   const getInputText = () => {
-    if (loading) return 'Chargement de la photo...';
-    if (picture) return 'Changer de photo';
-    return 'Ajouter ou prendre une photo';
-  }
+    if (loading) return "Chargement de la photo...";
+    if (picture) return "Changer de photo";
+    return "Ajouter ou prendre une photo";
+  };
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-lg">Photo de la situation<MandatoryAsterisk /></span>
+      <span className="text-lg">
+        Photo de la situation
+        <MandatoryAsterisk />
+      </span>
       <label className="flex flex-col gap-2">
         <span className="relative flex items-center justify-between w-full bg-foreground rounded-md px-3 py-2 text-white">
           {getInputText()}
@@ -76,7 +88,7 @@ const PictureDropzone = ({ setPictureUrl }: { setPictureUrl: (url: string) => vo
           className="h-25 w-fit object-cover"
         />
       )}
-      {error && <p className="w-full text-right text-red-500">{error}</p>}
+      {error && <Error message={error} />}
     </div>
   );
 };
