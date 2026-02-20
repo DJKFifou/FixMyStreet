@@ -1,6 +1,9 @@
+import { jwtDecode } from "jwt-decode"
 import { createBrowserClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+type CustomJwtPayload = { user_role?: string }
 
 export function createClient() {
   return createBrowserClient(
@@ -12,12 +15,20 @@ export function createClient() {
 export async function withUser<T>(
   supabase: ReturnType<typeof createClient>,
   router: AppRouterInstance,
-  callback: (user: User) => T | Promise<T>
+  callback: (context: { user: User, isAdmin: boolean }) => T | Promise<T>
 ): Promise<T | void> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    router.push('/login');
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    router.push("/login")
     return;
   }
-  return await callback(user);
+
+  const decoded = jwtDecode<CustomJwtPayload>(session.access_token);
+  const userRole = decoded.user_role ?? null;
+
+  return await callback({
+    user: session.user,
+    isAdmin: userRole === "admin"
+  });
 }

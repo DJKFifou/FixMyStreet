@@ -30,7 +30,7 @@ const PictureDropzone = ({
   const uploadFile = async (file?: File) => {
     if (!file) return;
 
-    await withUser(supabase, router, async (user) => {
+    await withUser(supabase, router, async ({ user }) => {
       const fileName = file.name;
       const fileExtension = fileName.slice(fileName.lastIndexOf(".") + 1);
       const filePath = `${user.id}/${crypto.randomUUID()}.${fileExtension}`;
