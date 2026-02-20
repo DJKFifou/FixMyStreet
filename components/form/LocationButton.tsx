@@ -2,6 +2,7 @@
 
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
+import getAddressFromCoordinates from "@/components/utils/getAddressFromCoordinates";
 import { useState } from "react";
 
 export default function LocationButton({
@@ -40,27 +41,22 @@ export default function LocationButton({
 
     setLat(crd.latitude);
     setLon(crd.longitude);
-    await getAddressFromCoordinates(crd.latitude, crd.longitude);
+    await getAddressFromCoordinates(
+      crd.latitude,
+      crd.longitude,
+      (address) => {
+        setLocation(address);
+      },
+      (error) => {
+        setError(error);
+      },
+    );
     setLoading(false);
   }
 
   function locationError(err: GeolocationPositionError) {
     setError(`Erreur de géolocalisation : ${err.message}`);
     setLoading(false);
-  }
-
-  async function getAddressFromCoordinates(lat: number, lon: number) {
-    try {
-      const url = new URL("https://data.geopf.fr/geocodage/reverse");
-      url.searchParams.set("lat", lat.toString());
-      url.searchParams.set("lon", lon.toString());
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Erreur réseau");
-      const data = await response.json();
-      setLocation(data.features[0]?.properties.label || "Adresse inconnue");
-    } catch {
-      setError("Impossible de récupérer l'adresse.");
-    }
   }
 
   function handleClickLocation() {
