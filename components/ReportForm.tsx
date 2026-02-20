@@ -15,7 +15,7 @@ const ReportForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await withUser(supabase, router, async (user) => {
+    await withUser(supabase, router, async ({ user }) => {
       const { error } = await supabase.from('reports').insert({
         author_id: user.id,
         image_url: pictureUrl,
@@ -23,7 +23,7 @@ const ReportForm = () => {
       });
       if (error) throw error;
 
-      router.push('/form-submitted');
+      router.push('/form/submitted');
     });
   };
 
