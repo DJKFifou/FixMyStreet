@@ -21,7 +21,6 @@ export default function LocationButton({
       "Facilite la localisation des anomalies et permet aux agents de prioriser les traitements en fonction des agglomérats.",
     button: "Je me géolocalise",
     loading: "Chargement de l'adresse...",
-    success: "Géolocalisation réussie !",
   };
 
   function getInputText() {
