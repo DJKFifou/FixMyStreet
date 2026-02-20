@@ -81,7 +81,7 @@ export default function LocationButton({
           {texts.title}
           <MandatoryAsterisk />
         </span>
-        <p className="text-gray-600">{texts.description}</p>
+        <p className="text-sm text-gray-600">{texts.description}</p>
       </div>
       <PrimaryButton
         type="button"
