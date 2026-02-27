@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
-import IconInput from './form/IconInput';
-import PrimaryButton from './ui/PrimaryButton';
-import SecondaryLink from './ui/SecondaryLink';
-import { createClient } from '@/lib/supabase/client';
-import { useState } from 'react';
+import IconInput from "./form/IconInput";
+import PrimaryButton from "./ui/PrimaryButton";
+import SecondaryLink from "./ui/SecondaryLink";
+import { createClient } from "@/lib/supabase/client";
+import { useState } from "react";
 
-export function ForgotPasswordForm({ setSuccess }: { setSuccess: (success: boolean) => void }) {
+export function ForgotPasswordForm({
+  setSuccess,
+}: {
+  setSuccess: (success: boolean) => void;
+}) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +49,7 @@ export function ForgotPasswordForm({ setSuccess }: { setSuccess: (success: boole
               onChange={(e) => setEmail(e.target.value)}
               icon="email"
             />
-            {error && <p className="text-sm text-red-500">{error}</p>}
+            {error && <p className="text-sm text-theme-red">{error}</p>}
             <PrimaryButton type="submit" disabled={isLoading}>
               {isLoading ? "Envoi..." : "Envoyer le lien de réinitialisation"}
             </PrimaryButton>
