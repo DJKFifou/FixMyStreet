@@ -3,7 +3,7 @@ import { formatDate } from "@/lib/utils/date";
 import ReportLocation from "./ReportLocation";
 
 const ReportCard = ({ report: { created_at, description, lat, lon, } }: { report: ReportType }) => (
-  <div className="w-full border-2 border-foreground rounded-md flex flex-col">
+  <div className="w-full border-3 border-theme-black rounded-md flex flex-col">
     <div className="w-full flex items-center justify-between p-3 pb-0">
       <i className="material-symbols-outlined">traffic</i>
     </div>

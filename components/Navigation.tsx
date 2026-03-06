@@ -25,8 +25,8 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="w-full grow flex flex-col justify-end">
-      <nav className="bg-background flex justify-around items-center px-7 pt-2 pb-7.5 shadow-t-sm">
+    <div className="fixed bottom-0 left-0 w-full grow flex flex-col justify-end">
+      <nav className="bg-theme-white flex justify-around items-center px-7 pt-2 pb-7.5 shadow-t-sm">
         {items.map((item) => (
           <NavigationItem key={item.title} item={item} />
         ))}
