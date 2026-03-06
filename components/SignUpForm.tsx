@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import IconInput from './form/IconInput';
-import PrimaryButton from './ui/PrimaryButton';
-import SecondaryLink from './ui/SecondaryLink';
-import PasswordInput from './form/PasswordInput';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import IconInput from "./form/IconInput";
+import PrimaryButton from "./ui/PrimaryButton";
+import SecondaryLink from "./ui/SecondaryLink";
+import PasswordInput from "./form/PasswordInput";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -57,7 +57,9 @@ export function SignUpForm() {
               label="Entrez votre email"
               required={true}
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               icon="email"
             />
           </div>
@@ -68,7 +70,9 @@ export function SignUpForm() {
               label="Entrez votre mot de passe"
               required={true}
               value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
           </div>
           <div className="grid gap-2">
@@ -78,10 +82,12 @@ export function SignUpForm() {
               label="Répétez votre mot de passe"
               required={true}
               value={repeatPassword}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRepeatPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setRepeatPassword(e.target.value)
+              }
             />
           </div>
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-sm text-theme-red">{error}</p>}
           <PrimaryButton type="submit" disabled={isLoading}>
             {isLoading ? "Enregistrement..." : "S'enregistrer"}
           </PrimaryButton>

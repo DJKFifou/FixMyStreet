@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import PrimaryButton from './ui/PrimaryButton';
-import SecondaryLink from './ui/SecondaryLink';
-import PasswordInput from './form/PasswordInput';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import PrimaryButton from "./ui/PrimaryButton";
+import SecondaryLink from "./ui/SecondaryLink";
+import PasswordInput from "./form/PasswordInput";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function UpdatePasswordForm() {
   const [password, setPassword] = useState("");
@@ -23,7 +23,7 @@ export function UpdatePasswordForm() {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
 
-      router.push('/');
+      router.push("/");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -41,11 +41,15 @@ export function UpdatePasswordForm() {
             label="Entrez votre nouveau mot de passe"
             required={true}
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           />
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-sm text-theme-red">{error}</p>}
           <PrimaryButton type="submit" disabled={isLoading}>
-            {isLoading ? "Enregistrement..." : "Enregistrer le nouveau mot de passe"}
+            {isLoading
+              ? "Enregistrement..."
+              : "Enregistrer le nouveau mot de passe"}
           </PrimaryButton>
         </div>
       </form>
