@@ -2,7 +2,7 @@
 
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import MandatoryAsterisk from "../ui/MandatoryAsterisk";
-import getAddressFromCoordinates from "@/components/utils/getAddressFromCoordinates";
+import GetAddressFromCoordinates from "@/components/utils/GetAddressFromCoordinates";
 import Error from "@/components/ui/Error";
 import { useState } from "react";
 
@@ -42,7 +42,7 @@ export default function LocationButton({
 
     setLat(crd.latitude);
     setLon(crd.longitude);
-    await getAddressFromCoordinates(
+    await GetAddressFromCoordinates(
       crd.latitude,
       crd.longitude,
       (address) => {

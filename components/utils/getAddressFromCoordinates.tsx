@@ -1,4 +1,4 @@
-export default async function getAddressFromCoordinates(
+export default async function GetAddressFromCoordinates(
   lat: number,
   lon: number,
   successCallback: (address: string) => void,

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { jwtDecode } from "jwt-decode";
-import FormLayout from "@/components/layouts/FormLayout";
+import UserLayout from "@/components/layouts/UserLayout";
 import ReportForm from "@/components/ReportForm";
 import Map from "@/components/Map";
 
@@ -14,5 +14,5 @@ export default async function Page() {
   const isAdmin = decoded.user_role === "admin";
   
   if (isAdmin) return <Map />;
-  else return <FormLayout><ReportForm /></FormLayout>
+  else return <UserLayout><ReportForm /></UserLayout>
 }

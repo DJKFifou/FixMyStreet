@@ -1,10 +1,10 @@
-import FormLayout from "@/components/layouts/FormLayout";
+import UserLayout from "@/components/layouts/UserLayout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <FormLayout>
+    <UserLayout>
       {children}
-    </FormLayout>
+    </UserLayout>
   );
 }
 
