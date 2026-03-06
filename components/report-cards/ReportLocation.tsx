@@ -4,7 +4,7 @@ import { getAddressFromCoordinates } from "@/lib/utils/location";
 import { useEffect, useState } from "react";
 
 const ReportLocationSkeleton = () => (
-  <div className="grow bg-foreground/20 h-4 animate-pulse rounded-sm"></div>
+  <div className="grow bg-theme-grey h-4 animate-pulse rounded-sm"></div>
 );
 
 const ReportLocation = ({ lat, lon }: { lat: number, lon: number }) => {
