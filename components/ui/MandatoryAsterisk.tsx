@@ -1,5 +1,5 @@
 const MandatoryAsterisk = () => (
-  <span className="text-xl text-red-500">*</span>
+  <span className="text-xl text-theme-red">*</span>
 );
 
 export default MandatoryAsterisk;

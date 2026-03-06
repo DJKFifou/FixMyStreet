@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import IconInput from './form/IconInput';
-import PrimaryButton from './ui/PrimaryButton';
-import SecondaryLink from './ui/SecondaryLink';
-import PasswordInput from './form/PasswordInput';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import Link from "next/link";
+import IconInput from "./form/IconInput";
+import PrimaryButton from "./ui/PrimaryButton";
+import SecondaryLink from "./ui/SecondaryLink";
+import PasswordInput from "./form/PasswordInput";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ export function LoginForm() {
       });
       if (error) throw error;
 
-      router.push('/');
+      router.push("/");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -37,7 +37,7 @@ export function LoginForm() {
     }
   };
 
-  return(
+  return (
     <div className="flex flex-col gap-4">
       <form onSubmit={handleLogin}>
         <div className="flex flex-col gap-6">
@@ -49,7 +49,9 @@ export function LoginForm() {
               label="Entrez votre email"
               required={true}
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               icon="email"
             />
           </div>
@@ -60,7 +62,9 @@ export function LoginForm() {
               label="Entrez votre mot de passe"
               required={true}
               value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
             />
             <Link
               href="/auth/forgot-password"
@@ -69,7 +73,7 @@ export function LoginForm() {
               Mot de passe oublié ?
             </Link>
           </div>
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-sm text-theme-red">{error}</p>}
           <PrimaryButton type="submit" disabled={isLoading}>
             {isLoading ? "Connexion..." : "Se connecter"}
           </PrimaryButton>
