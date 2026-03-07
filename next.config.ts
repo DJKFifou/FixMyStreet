@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         hostname: 'ebxqpvwejbwxyppqvwzw.supabase.co',
       },
     ],
-  },
+  }
 };
 
 export default nextConfig;

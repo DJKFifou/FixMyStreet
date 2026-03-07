@@ -84,4 +84,5 @@
   --color-theme-blue: #0511f2;
   --color-theme-lightBlue: #8d92f2;
   --color-theme-darkBlue: #090e73;
+  --shadow-t-sm: 0px -2px 5px var(--color-theme-lightGrey);
 }
