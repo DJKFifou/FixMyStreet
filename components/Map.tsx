@@ -10,43 +10,49 @@ import Popup from "@/components/Popup";
 export default function Map() {
   const mapRef = useRef<L.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const bordeauxCoordinates: [number, number] = [44.85, -0.57];
+  const mapDefaultZoom = 14;
 
   useEffect(() => {
     const supabase = createClient();
 
     async function initMap() {
+      if (mapRef.current || !mapContainerRef.current) return;
+
       const { data: reports } = await supabase
         .from("reports")
         .select("*")
         .returns<ReportsType>();
 
-      console.log("Reports data:", reports);
-
-      if (mapRef.current) return;
-
       const L = await import("leaflet");
-      if (!mapContainerRef.current) return;
 
       const mapInstance = L.map(mapContainerRef.current).setView(
-        [44.85, -0.57],
-        14,
+        bordeauxCoordinates,
+        mapDefaultZoom,
       );
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
       }).addTo(mapInstance);
 
+      const myIcon = L.icon({
+        iconUrl: "/images/icon_marker.svg",
+        iconSize: [38, 95],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+      });
+
       if (reports && reports.length > 0) {
         await Promise.all(
           reports.map(async (report) => {
             const popupContent = await Popup(report);
-            L.marker([report.lat, report.lon])
+            L.marker([report.lat, report.lon], { icon: myIcon })
               .addTo(mapInstance)
               .bindPopup(popupContent, { maxWidth: 200 });
           }),
         );
 
-        mapInstance.setView([reports[0].lat, reports[0].lon], 14);
+        mapInstance.setView([reports[0].lat, reports[0].lon], mapDefaultZoom);
       }
 
       mapRef.current = mapInstance;
@@ -62,10 +68,5 @@ export default function Map() {
     };
   }, []);
 
-  return (
-    <div>
-      <h1>Admin Map</h1>
-      <div ref={mapContainerRef} className="h-150 w-full" />
-    </div>
-  );
+  return <div ref={mapContainerRef} className="h-150 w-full" />;
 }
