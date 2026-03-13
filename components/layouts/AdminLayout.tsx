@@ -21,7 +21,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
         <nav className="bg-theme-white p-5 shadow-t-sm">
           <ul className="flex justify-between items-center">
             <li className="flex-1 flex items-center">
-              <Link href="/dashboard" className="material-symbols-outlined">
+              <Link href="/" className="material-symbols-outlined">
                 Home
               </Link>
             </li>
