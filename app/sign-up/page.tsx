@@ -4,13 +4,16 @@ import { SignUpForm } from "@/components/SignUpForm";
 export default function Page() {
   return (
     <div className="flex flex-col min-h-svh">
-      <Image
-        src={"/images/sign-up.jpg"}
-        width={1000}
-        height={1000}
-        alt="Page d'enregistrement"
-        className="bg-theme-blue w-full aspect-video object-cover md:hidden"
-      />
+      <div className="bg-theme-blue w-full flex items-center justify-center md:hidden py-25">
+        <Image
+          src="/logo-fixmystreet-blanc.png"
+          width={90}
+          height={90}
+          alt="Logo FixMyStreet"
+          className="mr-2"
+        />
+        <span className="font-grotesk font-bold text-white text-3xl">FixMyStreet</span>
+      </div>
       <div className="grow flex flex-col gap-4 w-full items-center justify-end px-6 py-12 md:py-6">
         <div className="grow flex flex-col items-center justify-center w-3/4">
           <h1 className="text-2xl text-center mb-4">Enregistrement</h1>

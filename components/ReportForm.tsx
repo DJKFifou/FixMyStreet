@@ -33,18 +33,22 @@ const ReportForm = () => {
   };
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-5 pb-32" onSubmit={handleSubmit}>
       <LocationButton setLat={setLat} setLon={setLon} />
       <PictureDropzone setPictureUrl={setPictureUrl} />
       <TextAreaWithLengthIndicator
         label="Description"
         value={description}
         maxLength={250}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-          setDescription(e.target.value)
-        }
+        onChange={(e) => setDescription(e.target.value)}
       />
-      <PrimaryButton type="submit">Je valide mon signalement</PrimaryButton>
+
+
+      <div className="fixed bottom-30 left-0 w-full px-4">
+        <PrimaryButton type="submit">
+          Je valide mon signalement
+        </PrimaryButton>
+      </div>
     </form>
   );
 };

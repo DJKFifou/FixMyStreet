@@ -73,6 +73,7 @@
   --color-theme-offWhite: #f5f5f5;
   --color-theme-lightGrey: #d9d9d9;
   --color-theme-grey: #b3b3b3;
+  --color-theme-darkGrey: #929292;
   --color-theme-lightBlack: #2c2c2c;
   --color-theme-black: #0a0b0d;
   --color-theme-green: #029d4a;
@@ -84,5 +85,11 @@
   --color-theme-blue: #0511f2;
   --color-theme-lightBlue: #8d92f2;
   --color-theme-darkBlue: #090e73;
-  --shadow-t-sm: 0px -2px 5px var(--color-theme-lightGrey);
+  --shadow-t-sm: 0px 2px 6px var(--color-theme-lightGrey);
+}
+
+h1 {
+  font-family: Grotesk, Fallback, sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
 }

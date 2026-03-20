@@ -4,16 +4,20 @@ import { LoginForm } from "@/components/LoginForm";
 export default function Page() {
   return (
     <div className="flex flex-col min-h-svh">
-      <Image
-        src={"/images/sign-up.jpg"}
-        width={1000}
-        height={1000}
-        alt="Page de connexion"
-        className="bg-theme-blue w-full aspect-video object-cover md:hidden"
-      />
+
+      <div className="bg-theme-blue w-full flex items-center justify-center md:hidden py-30">
+        <Image
+          src="/logo-fixmystreet-blanc.png"
+          width={90}
+          height={90}
+          alt="Logo FixMyStreet"
+          className="mr-2"
+        />
+        <span className="font-grotesk font-bold text-white text-3xl">FixMyStreet</span>
+      </div>
       <div className="grow flex flex-col gap-4 w-full items-center justify-end px-6 py-12 md:py-6">
         <div className="grow flex flex-col items-center justify-center w-3/4">
-          <h1 className="text-2xl text-center mb-4 font-grotesk font-bold">
+          <h1 className="text-2xl text-center mb-4">
             Connexion
           </h1>
           <small className="text-sm text-center text-gray-500">

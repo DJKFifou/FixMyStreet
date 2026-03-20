@@ -2,17 +2,38 @@ import { ReportType } from "@/app/types";
 import { formatDate } from "@/lib/utils/date";
 import ReportLocation from "./ReportLocation";
 
-const ReportCard = ({ report: { created_at, description, lat, lon, } }: { report: ReportType }) => (
-  <div className="w-full border-3 border-theme-black rounded-md flex flex-col">
-    <div className="w-full flex items-center justify-between p-3 pb-0">
-      <i className="material-symbols-outlined">traffic</i>
+const ReportCard = ({
+  report: { created_at, description, lat, lon },
+}: {
+  report: ReportType;
+}) => (
+  <div className="w-full bg-white rounded-xl shadow-md border border-theme-offWhite overflow-hidden">
+
+    {/* Header */}
+    <div className="flex items-center justify-between p-4 border-b border-theme-offWhite">
+      <span className="material-symbols-outlined text-theme-blue text-3xl">
+        traffic
+      </span>
     </div>
-    <div className="w-full flex flex-col items-center justify-center px-12 pb-7">
-      <p className="text-xl">{formatDate(created_at)}</p>
-      <ReportLocation lat={lat} lon={lon} />
-      <div className="self-start">
-        <p>Description:</p>
-        <p>{description}</p>
+
+    {/* Content */}
+    <div className="flex flex-col gap-4 p-5 ml-4 mr-4">
+
+      {/* Date */}
+      <div className="flex items-center gap-2 text-theme-lightBlack text-sm font-medium">
+        <span className="material-symbols-outlined text-base">calendar_month</span>
+        <span>{formatDate(created_at)}</span>
+      </div>
+
+      {/* Location */}
+      <div className="flex items-center gap-2 text-theme-lightBlack text-sm">
+        <ReportLocation lat={lat} lon={lon} />
+      </div>
+
+      {/* Description */}
+      <div className="flex flex-col gap-1">
+        <p className="text-theme-lightBlack font-medium">Description :</p>
+        <p className="text-theme-darkGrey text-sm leading-relaxed">{description}</p>
       </div>
     </div>
   </div>
