@@ -1,20 +1,14 @@
 import Image from "next/image";
 import { SignUpForm } from "@/components/SignUpForm";
+import { LogoImage } from "@/components/LogoImage";
 
 export default function Page() {
   return (
     <div className="flex flex-col min-h-svh">
-      <div className="bg-theme-blue w-full flex items-center justify-center md:hidden py-25">
-        <Image
-          src="/logo-fixmystreet-blanc.png"
-          width={90}
-          height={90}
-          alt="Logo FixMyStreet"
-          className="mr-2"
-        />
-        <span className="font-grotesk font-bold text-white text-3xl">FixMyStreet</span>
-      </div>
-      <div className="grow flex flex-col gap-4 w-full items-center justify-end px-6 py-12 md:py-6">
+      <LogoImage />
+      <div className="grow flex flex-col gap-4 rounded-lg bg-white w-full 
+                      items-center justify-end px-6 py-12 md:py-6
+                      -mt-6 shadow-lg relative z-10">
         <div className="grow flex flex-col items-center justify-center w-3/4">
           <h1 className="text-2xl text-center mb-4">Enregistrement</h1>
           <small className="text-sm text-center text-gray-500">

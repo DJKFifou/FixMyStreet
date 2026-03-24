@@ -68,7 +68,7 @@ export function LoginForm() {
             />
             <Link
               href="/auth/forgot-password"
-              className="ml-auto inline-block text-sm underline underline-offset-4"
+              className="ml-auto inline-block text-sm text-theme-blue mt-4 underline underline-offset-4"
             >
               Mot de passe oublié ?
             </Link>

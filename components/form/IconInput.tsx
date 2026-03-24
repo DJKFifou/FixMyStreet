@@ -32,7 +32,13 @@ const IconInput = ({
         required={required}
         value={value}
         onChange={onChange}
-        className="border border-theme-black rounded-md p-2"
+        className="border border-theme-lightBlack 
+    rounded-md p-2 
+    outline-none
+    focus:outline-none
+    focus:border-theme-blue 
+    focus:ring-1 
+    focus:ring-theme-blue"
       />
       {icon && (
         <span

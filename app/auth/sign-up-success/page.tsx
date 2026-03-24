@@ -14,7 +14,7 @@ export default function Page() {
           </p>
           <Link
             href="/login"
-            className="block text-center w-full border border-theme-black rounded-md p-2"
+            className="block text-center w-full border border-theme-blue rounded-md p-2"
           >
             Se connecter
           </Link>
