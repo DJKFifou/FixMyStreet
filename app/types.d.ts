@@ -9,3 +9,7 @@ export type ReportType = {
   lat: number;
   lon: number;
 };
+
+export type MarkerCluster = {
+  getChildCount: () => number;
+};
