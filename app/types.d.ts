@@ -12,4 +12,8 @@ export type ReportType = {
 
 export type BeforeInstallPromptEvent = Event & {
   prompt: () => void;
+}
+
+export type MarkerCluster = {
+  getChildCount: () => number;
 };
