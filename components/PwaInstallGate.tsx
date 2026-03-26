@@ -1,7 +1,14 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import InstallPrompt from './InstallPrompt';
+
+async function registerServiceWorker() {
+  navigator.serviceWorker.register('/sw.js', {
+    scope: '/',
+    updateViaCache: 'none',
+  });
+}
 
 function getIsStandalone() {
   if (typeof window === 'undefined') return false;
@@ -25,6 +32,12 @@ export default function PwaInstallGate({ children }: { children: React.ReactNode
     getIsStandalone,
     () => false
   );
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      registerServiceWorker();
+    }
+  });
 
   if (isStandalone) {
     return children;
