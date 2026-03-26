@@ -30,34 +30,29 @@ export default function InstallPrompt() {
   const triggerInstallPrompt = async () => {
     if (!installPrompt) return;
 
-    await installPrompt.prompt();
+    installPrompt.prompt();
   };
 
   return (
     <div className="px-6 py-12 md:py-6">
       <h3 className="text-2xl font-bold mb-3">Installez l&apos;application</h3>
+      <p className="mb-3">
+        Pour nous assurer que vous puissiez utiliser l&apos;application dans des conditions
+        optimales, nous vous proposons de l&apos;installer.
+      </p>
       { installPrompt
-      ? (
-        <PrimaryButton type="button" classes="mb-3" onClick={triggerInstallPrompt}>
-          Ajouter à l&apos;écran d&apos;accueil
-        </PrimaryButton>
-      )
-      : (
-        <>
-          <InfoToast>
-            <span>
-              Pour nous assurer que vous puissiez utiliser l&apos;application dans des conditions
-              optimales, nous vous proposons de l&apos;installer.
-            </span>
-            <span>
-              Votre navigateur ne supporte pas l&apos;affiche personnalisé du panneau
-              d&apos;installation. Veuillez suivre les instructions ci-dessous.
-            </span>
-          </InfoToast>
-
-          {isIOS
+        ? (
+          <PrimaryButton type="button" classes="mb-3" onClick={triggerInstallPrompt}>
+            Ajouter à l&apos;écran d&apos;accueil
+          </PrimaryButton>
+        )
+        : isIOS
           ? (
             <>
+              <InfoToast>
+                Votre navigateur ne supporte pas l&apos;affiche personnalisé du panneau
+                d&apos;installation. Veuillez suivre les instructions ci-dessous.
+              </InfoToast>
               <p className="mb-3">Pour installer cette application sur votre appareil iOS :</p>
               <ul className="flex flex-col gap-3">
                 <li className="flex items-baseline gap-2">
@@ -76,9 +71,8 @@ export default function InstallPrompt() {
               Nous sommes navré, mais votre appareil ne supporte pas les fonctionnalités nécessaires
               à la bonne exécution de cette application.
             </WarningToast>
-          )}
-        </>
-      )}
+          )
+      }
     </div>
   );
 }
