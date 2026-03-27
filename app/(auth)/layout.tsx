@@ -1,6 +1,6 @@
 import { LogoImage } from "@/components/LogoImage";
 
-const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col min-h-svh">
       <LogoImage />
@@ -15,4 +15,4 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default AuthLayout;
+export default Layout;

@@ -9,20 +9,18 @@ export default function Page() {
 
   if (success) {
     return (
-      <>
-        <div className="grow flex flex-col items-center justify-center w-3/4">
-          <h1 className="text-2xl text-center mb-4">Vérifiez vos emails</h1>
-          <p className="text-center mb-4">
-            Les instructions de réinitialisation ont été envoyées à votre email
-          </p>
-          <Link
-            href="/login"
-            className="block text-center w-full border border-theme-blue rounded-md p-2"
-          >
-            Se connecter
-          </Link>
-        </div>
-      </>
+      <div className="grow flex flex-col items-center justify-center w-3/4">
+        <h1 className="text-2xl text-center mb-4">Vérifiez vos emails</h1>
+        <p className="text-center mb-4">
+          Les instructions de réinitialisation ont été envoyées à votre email
+        </p>
+        <Link
+          href="/login"
+          className="block text-center w-full border border-theme-blue rounded-md p-2"
+        >
+          Se connecter
+        </Link>
+      </div>
     );
   }
 
