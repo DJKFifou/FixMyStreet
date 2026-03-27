@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `fms-static-${CACHE_VERSION}`;
 const OFFLINE_URL = '/offline.html';
 const PRECACHE_URLS = [
@@ -47,6 +47,10 @@ self.addEventListener('fetch', (event) => {
   // Only intercept GET requests over http(s)
   if (request.method !== 'GET') return;
   if (!url.protocol.startsWith('http')) return;
+
+  // Exclude externals from caching
+  if (url.hostname !== 'fixmystreet.maximelust.fr') return;
+  if (url.hostname !== 'localhost' || url.hostname !== '127.0.0.1') return;
 
   event.respondWith(networkFirst(request));
 });
