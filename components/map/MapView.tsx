@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { ReportsType, HeatmapPoint } from "@/app/types";
-import dynamic from "next/dynamic";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
+import dynamic from "next/dynamic";
 
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
@@ -34,7 +34,7 @@ export default function MapView() {
       <Container>
         {reports && (
           <HeatmapLayer
-            points={reports.map(({ lat, lon }) => [lat, lon, 1])}
+            points={reports.map(({ lat, lon }) => [lat, lon, 1] as HeatmapPoint)}
             longitudeExtractor={heatmapLayerLongitude}
             latitudeExtractor={heatmapLayerLatitude}
             intensityExtractor={heatmapLayerIntensity}
