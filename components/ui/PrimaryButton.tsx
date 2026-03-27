@@ -13,7 +13,8 @@ const PrimaryButton = ({
 }) => (
   <button
     type={type}
-    className={`w-full border border-theme-black bg-theme-black text-white rounded-md p-2 cursor-pointer ${classes}`}
+    className={`w-full border border-theme-blue bg-theme-blue text-white rounded-lg p-2 cursor-pointer active:scale-105 active:bg-theme-darkBlue
+      transition-all duration-150 ease-out ${classes}`}
     disabled={disabled}
     onClick={onClick}
   >
