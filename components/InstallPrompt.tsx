@@ -68,7 +68,7 @@ export default function InstallPrompt() {
           )
           : (
             <WarningToast>
-              Nous sommes navré, mais votre appareil ne supporte pas les fonctionnalités nécessaires
+              Nous sommes navrés, mais votre appareil ne supporte pas les fonctionnalités nécessaires
               à la bonne exécution de cette application.
             </WarningToast>
           )
