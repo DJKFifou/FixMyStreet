@@ -78,7 +78,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Voici les instructions pour faire installer et faire tourner l'application en local.
+Voici les instructions pour installer et faire tourner l'application en local.
 
 ### Prérequis
 
