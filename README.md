@@ -92,7 +92,7 @@ Avant d'installer :
 
 1. Clonez le repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone git@github.com:DJKFifou/FixMyStreet.git
    ```
 2. Installez les packages NPM
    ```sh
