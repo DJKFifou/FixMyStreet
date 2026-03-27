@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { ReportsType } from "@/app/types";
+import { ReportsType, HeatmapPoint } from "@/app/types";
 import dynamic from "next/dynamic";
+import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
+
+const heatmapLayerLongitude = (m: HeatmapPoint) => m[1];
+const heatmapLayerLatitude = (m: HeatmapPoint) => m[0];
+const heatmapLayerIntensity = (m: HeatmapPoint) => m[2];
+const heatmapLayerRadius = 40;
 
 export default function MapView() {
   const [reports, setReports] = useState<ReportsType | null>(null);
@@ -14,15 +20,27 @@ export default function MapView() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.from("reports").select("*").then(({ data }) => {
-      setReports(data);
-      setIsLoading(false);
-    });
+    supabase
+      .from("reports")
+      .select("*")
+      .then(({ data }) => {
+        setReports(data);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
     <div className="relative w-full grow flex flex-col">
       <Container>
+        {reports && (
+          <HeatmapLayer
+            points={reports.map(({ lat, lon }) => [lat, lon, 1])}
+            longitudeExtractor={heatmapLayerLongitude}
+            latitudeExtractor={heatmapLayerLatitude}
+            intensityExtractor={heatmapLayerIntensity}
+            radius={heatmapLayerRadius}
+          />
+        )}
         <Markers reports={reports} />
       </Container>
       {isLoading && (
