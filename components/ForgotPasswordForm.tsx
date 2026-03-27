@@ -43,6 +43,7 @@ export function ForgotPasswordForm({
             <IconInput
               id="email"
               type="email"
+              label="Entrez votre email"
               placeholder="email@email.com"
               required
               value={email}

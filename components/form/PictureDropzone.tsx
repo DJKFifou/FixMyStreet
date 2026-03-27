@@ -66,7 +66,7 @@ const PictureDropzone = ({
         <MandatoryAsterisk />
       </span>
       <label className="flex flex-col gap-2">
-        <span className="relative flex items-center justify-between w-full bg-theme-black rounded-md px-3 py-2 text-white">
+        <span className="relative flex items-center justify-between w-full bg-theme-blue rounded-md px-3 py-2 text-white">
           {getInputText()}
           <i className="material-symbols-outlined">photo_camera</i>
         </span>

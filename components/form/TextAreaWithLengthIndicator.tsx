@@ -16,7 +16,9 @@ const TextAreaWithLengthIndicator = ({
         value={value}
         onChange={onChange}
         placeholder="Décrivez le problème ou la situation que vous avez rencontré. Indiquez le lieu."
-        className="w-full border border-theme-black rounded-md p-2"
+        className="w-full border text-sm border-theme-black rounded-md p-2 
+             focus:border-theme-blue focus:ring-2 focus:ring-theme-blue/40 
+             focus:outline-none transition-all duration-150"
         rows={3}
         maxLength={maxLength}
       />
