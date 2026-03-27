@@ -10,6 +10,8 @@ export type ReportType = {
   lon: number;
 };
 
+export type HeatmapPoint = [lat: number, lon: number, intensity: number];
+
 export type MarkerCluster = {
   getChildCount: () => number;
 };

@@ -2,14 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { ReportsType } from "@/app/types";
+import { ReportsType, HeatmapPoint } from "@/app/types";
 import dynamic from "next/dynamic";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 
-type HeatmapPoint = [lat: number, lon: number, intensity: number];
-
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
+
+const heatmapLayerLongitude = (m: HeatmapPoint) => m[1];
+const heatmapLayerLatitude = (m: HeatmapPoint) => m[0];
+const heatmapLayerIntensity = (m: HeatmapPoint) => m[2];
+const heatmapLayerRadius = 40;
 
 export default function MapView() {
   const [reports, setReports] = useState<ReportsType | null>(null);
@@ -32,10 +35,10 @@ export default function MapView() {
         {reports && (
           <HeatmapLayer
             points={reports.map(({ lat, lon }) => [lat, lon, 1])}
-            longitudeExtractor={(m: HeatmapPoint) => m[1]}
-            latitudeExtractor={(m: HeatmapPoint) => m[0]}
-            intensityExtractor={(m: HeatmapPoint) => m[2]}
-            radius={40}
+            longitudeExtractor={heatmapLayerLongitude}
+            latitudeExtractor={heatmapLayerLatitude}
+            intensityExtractor={heatmapLayerIntensity}
+            radius={heatmapLayerRadius}
           />
         )}
         <Markers reports={reports} />
