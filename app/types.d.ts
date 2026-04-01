@@ -8,6 +8,7 @@ export type ReportType = {
   image_url: string;
   lat: number;
   lon: number;
+  category?: string;
 };
 
 export type MarkerCluster = {
