@@ -8,20 +8,36 @@ import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface ReportFormProps {
-  category?: string;
+export interface ReportFormData {
+  category: string;
+  description: string;
+  pictureUrl: string | null;
+  lat: number | null;
+  lon: number | null;
 }
 
-const ReportForm = ({ category }: ReportFormProps) => {
+interface ReportFormProps {
+  category?: string;
+  initialData?: Omit<ReportFormData, "category">;
+  onContinue?: (data: Omit<ReportFormData, "category">) => void;
+}
+
+const ReportForm = ({ category, initialData, onContinue }: ReportFormProps) => {
   const router = useRouter();
   const supabase = createClient();
-  const [description, setDescription] = useState("");
-  const [pictureUrl, setPictureUrl] = useState<string | null>(null);
-  const [lat, setLat] = useState<number | null>(null);
-  const [lon, setLon] = useState<number | null>(null);
+  const [description, setDescription] = useState(initialData?.description ?? "");
+  const [pictureUrl, setPictureUrl] = useState<string | null>(initialData?.pictureUrl ?? null);
+  const [lat, setLat] = useState<number | null>(initialData?.lat ?? null);
+  const [lon, setLon] = useState<number | null>(initialData?.lon ?? null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (onContinue) {
+      onContinue({ description, pictureUrl, lat, lon });
+      return;
+    }
+
     await withUser(supabase, router, async ({ user }) => {
       const { error } = await supabase.from("reports").insert({
         author_id: user.id,
@@ -71,11 +87,8 @@ const ReportForm = ({ category }: ReportFormProps) => {
         onChange={(e) => setDescription(e.target.value)}
       />
 
-
       <div className="fixed bottom-30 left-0 w-full px-4">
-        <PrimaryButton type="submit">
-          Je valide mon signalement
-        </PrimaryButton>
+        <PrimaryButton type="submit">Suivant</PrimaryButton>
       </div>
     </form>
   );

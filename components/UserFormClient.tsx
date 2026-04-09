@@ -1,14 +1,6 @@
 "use client";
-import { useState } from "react";
-import ReportForm from "@/components/ReportForm";
-import CategoriesSelection from "@/components/CategoriesSelection";
+import ReportFormManager from "@/components/ReportFormManager";
 
 export default function UserFormClient() {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-    if (!selectedCategory) {
-        return <CategoriesSelection onCategorySelect={setSelectedCategory} />;
-    }
-
-    return <ReportForm category={selectedCategory} />;
+    return <ReportFormManager />;
 }

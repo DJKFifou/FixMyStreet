@@ -1,5 +1,6 @@
-import MandatoryAsterisk from "./ui/MandatoryAsterisk";
+
 import Image from "next/image";
+import PrimaryButton from "./ui/PrimaryButton";
 
 const categories = [
     { id: "voirie", name: "Dégât sur la voie" },
@@ -26,16 +27,18 @@ export default function CategoriesSelection({ onCategorySelect }: CategoriesSele
                     FixMyStreet
                 </span>
             </div>
-            <h1 className="w-full text-center text-3xl leading-10 mb-6.5">Choisissez une catégorie<MandatoryAsterisk /></h1>
+            <h1 className="w-full text-center text-3xl leading-10 mb-6.5">Choisissez une catégorie</h1>
             <div className="grid grid-cols-2 gap-4 max-w-md mx-auto ">
                 {categories.map((category) => (
-                    <button
+                    <PrimaryButton
                         key={category.id}
+                        type="button"
                         onClick={() => onCategorySelect(category.id)}
-                        className="flex flex-col items-center justify-center h-32 border border-theme-blue bg-theme-blue text-white rounded-lg p-4 cursor-pointer active:scale-105 active:bg-theme-darkBlue transition-all duration-150 ease-out hover:bg-theme-darkBlue shadow-t-sm"
+                        classes="h-32 p-4"
                     >
-                        <h2 className="text-sm font-medium text-center leading-tight">{category.name}</h2>
-                    </button>
+                        <h2 className="text-sm
+                         font-medium text-center leading-tight">{category.name}</h2>
+                    </PrimaryButton>
                 ))}
             </div>
         </div>
