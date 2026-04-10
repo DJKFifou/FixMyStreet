@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FixMyStreet — Hors ligne</title>
+  <style>
+    @font-face {
+      font-family: 'Poppins';
+      src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Poppins';
+      src: url('/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #0511f2;
+      padding: 1.25rem 1.5rem;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.25rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      padding: 2rem 1.5rem;
+      max-width: 360px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0a0b0d;
+    }
+
+    p {
+      font-size: 0.9375rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    button {
+      margin-top: 0.5rem;
+      background: #0511f2;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:active {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <header>FixMyStreet</header>
+  <main>
+    <div class="card">
+      <div class="icon">📡</div>
+      <h1>Vous êtes hors ligne</h1>
+      <p>Vérifiez votre connexion internet et réessayez</p>
+      <button onclick="window.location.reload()">Réessayer</button>
+    </div>
+  </main>
+</body>
+</html>

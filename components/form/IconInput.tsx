@@ -21,7 +21,7 @@ const IconInput = ({
 }) => {
   return (
     <label
-      className="relative flex flex-col gap-2 text-sm text-gray-600"
+      className="relative flex flex-col gap-2 text-gray-600"
       htmlFor="password"
     >
       {label}

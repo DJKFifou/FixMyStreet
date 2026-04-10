@@ -20,7 +20,8 @@ export function UpdatePasswordForm() {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.updateUser({ password });
+      const emailRedirectTo = `${window.location.origin}/auth/update-password`;
+      const { error } = await supabase.auth.updateUser({ password }, { emailRedirectTo });
       if (error) throw error;
 
       router.push("/");

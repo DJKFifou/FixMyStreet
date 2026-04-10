@@ -11,6 +11,6 @@ export type ReportType = {
   category?: string;
 };
 
-export type MarkerCluster = {
-  getChildCount: () => number;
-};
+export type BeforeInstallPromptEvent = Event & { prompt: () => void; };
+export type HeatmapPoint = [lat: number, lon: number, intensity: number];
+export type MarkerCluster = { getChildCount: () => number; };

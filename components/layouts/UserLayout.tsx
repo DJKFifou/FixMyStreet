@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/navigation";
 import Navigation from "../Navigation";
+import PwaInstallGate from "../PwaInstallGate";
 
 const UserLayout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = await createClient();
@@ -15,10 +16,12 @@ const UserLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex flex-col min-h-svh">
-      <div className="px-6 py-12 md:py-6">
-        {children}
-      </div>
-      <Navigation />
+      <PwaInstallGate>
+        <div className="px-6 py-12 md:py-6">
+          {children}
+        </div>
+        <Navigation />
+      </PwaInstallGate>
     </div>
   );
 }
