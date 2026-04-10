@@ -19,7 +19,7 @@ export default function ReportFormManager() {
         setStep(2);
     };
 
-    const handleFormContinue = async (data: Omit<ReportFormData, "category">) => {
+    const handleFormContinuation = async (data: Omit<ReportFormData, "category">) => {
         setFormData({ ...data, category: selectedCategory! });
         await withUser(supabase, router, async ({ user }) => {
             const { error } = await supabase.from("reports").insert({
@@ -32,19 +32,27 @@ export default function ReportFormManager() {
         });
     };
 
+    const goBackFromReportForm = () => setStep(1);
+    const restartForm = () => {
+        setSelectedCategory(null);
+        setFormData(null);
+        setStep(1);
+    };
+
     switch (step) {
         case 2:
             return (
                 <ReportFormStep
                     category={selectedCategory!}
                     initialData={formData}
-                    onContinue={handleFormContinue}
+                    onSubmit={handleFormContinuation}
+                    goBack={goBackFromReportForm}
                 />
             );
         case 3:
             break;
         case 4:
-            return <ValidationStep setStep={setStep} />
+            return <ValidationStep restartForm={restartForm} />
         case 1:
         default:
             return <CategorySelectionStep onCategorySelect={handleCategorySelect} />;

@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 const Redirector = ({
-  redirect,
+  action,
   time = 3,
   additionalClasses = '',
 }: {
-  redirect: () => void;
+  action: () => void;
   time?: number;
   additionalClasses?: string;
 }) => {
@@ -22,9 +22,9 @@ const Redirector = ({
 
   useEffect(() => {
     if (timer === 0) {
-      redirect();
+      action();
     }
-  }, [timer, redirect]);
+  }, [timer, action]);
 
   return <p className={additionalClasses}>Vous allez être redirigé dans {timer} {timer === 1 ? 'seconde' : 'secondes'}...</p>;
 };

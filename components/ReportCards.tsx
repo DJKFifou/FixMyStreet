@@ -4,7 +4,10 @@ import ReportCard from "./report-cards/ReportCard";
 
 const ReportCards = async () => {
   const supabase = await createClient();
-  const { data: reports }: { data: ReportsType | null } = await supabase.from("reports").select("*");
+  const { data: reports }: { data: ReportsType | null } = await supabase
+    .from("reports")
+    .select("*")
+    .order('created_at', { ascending: false });
   console.log(reports);
 
   return (
