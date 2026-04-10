@@ -1,50 +1,52 @@
 "use client";
 import { useState } from "react";
-import ReportForm, { ReportFormData } from "@/components/ReportFormStep";
-import CategoriesSelection from "@/components/CategorySelectionStep";
-import ReportFormValidator from "@/components/ReportFormValidator";
+import ReportFormStep, { ReportFormData } from "@/components/report-form-manager/ReportFormStep";
+import CategorySelectionStep from "@/components/report-form-manager/CategorySelectionStep";
+import ValidationStep from "@/components/report-form-manager/ValidationStep";
+import { createClient, withUser } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+
 
 export default function ReportFormManager() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
     const [formData, setFormData] = useState<ReportFormData | null>(null);
+    const router = useRouter();
+    const supabase = createClient();
 
     const handleCategorySelect = (category: string) => {
         setSelectedCategory(category);
         setStep(2);
     };
 
-    const handleFormContinue = (data: Omit<ReportFormData, "category">) => {
-        if (!selectedCategory) return;
-        setFormData({ ...data, category: selectedCategory });
-        setStep(3);
-    };
+    const handleFormContinue = async (data: Omit<ReportFormData, "category">) => {
+        setFormData({ ...data, category: selectedCategory! });
+        await withUser(supabase, router, async ({ user }) => {
+            const { error } = await supabase.from("reports").insert({
+                author_id: user.id,
+                ...data,
+            });
+            if (error) throw error;
 
+            setStep(4); //à remplacer par le 3 quand il sera créé 
+        });
+    };
 
     switch (step) {
         case 2:
             return (
-                <ReportForm
-                    category={selectedCategory ?? undefined}
-                    initialData={formData ?? undefined}
+                <ReportFormStep
+                    category={selectedCategory!}
+                    initialData={formData}
                     onContinue={handleFormContinue}
                 />
             );
         case 3:
-
-            return (
-                <ReportFormValidator data={formData as ReportFormData} />
-            );
-
-
+            break;
         case 4:
-            return formData ? (
-                <ReportFormValidator data={formData} />
-            ) : (
-                <CategoriesSelection onCategorySelect={handleCategorySelect} />
-            );
+            return <ValidationStep setStep={setStep} />
         case 1:
         default:
-            return <CategoriesSelection onCategorySelect={handleCategorySelect} />;
+            return <CategorySelectionStep onCategorySelect={handleCategorySelect} />;
     }
 }

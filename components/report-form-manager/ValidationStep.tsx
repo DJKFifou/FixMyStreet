@@ -1,0 +1,19 @@
+import Redirector from "@/components/utils/Redirector";
+import SecondaryButton from "../ui/SecondaryButton";
+
+const ValidationStep = ({ setStep }: { setStep: (step: 1 | 2 | 3 | 4) => void }) => {
+    return (
+        <div className="grow flex flex-col items-center justify-center">
+            <div className="grow flex flex-col gap-4 items-center justify-center w-3/4">
+                <h1 className="text-2xl text-center">Merci pour votre signalement !</h1>
+                <small className="text-sm text-center text-gray-500">
+                    Nous vous remercions de votre contribution.
+                </small>
+                <Redirector redirect={() => setStep(1)} time={5} additionalClasses="text-center text-gray-500" />
+            </div>
+            <SecondaryButton onClick={() => setStep(1)}>Retour à l&apos;accueil</SecondaryButton>
+        </div>
+    );
+}
+
+export default ValidationStep;

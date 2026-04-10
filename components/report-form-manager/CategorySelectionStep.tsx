@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import PrimaryButton from "./ui/PrimaryButton";
+import PrimaryButton from "../ui/PrimaryButton";
 
 const categories = [
     { id: "voirie", name: "Dégât sur la voie" },
@@ -13,7 +13,7 @@ interface CategoriesSelectionProps {
     onCategorySelect: (category: string) => void;
 }
 
-export default function CategoriesSelection({ onCategorySelect }: CategoriesSelectionProps) {
+export default function CategorySelectionStep({ onCategorySelect }: CategoriesSelectionProps) {
     return (
         <div className="flex flex-col gap-5 pb-32">
             <div className="relative flex items-center justify-center space-x-1 mb-7">

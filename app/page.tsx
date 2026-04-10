@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import UserLayout from "@/components/layouts/UserLayout";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Map from "@/components/map/Map";
-import UserFormClient from "@/components/UserFormClient";
+import ReportFormManager from "@/components/ReportFormManager";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -25,7 +25,7 @@ export default async function Page() {
   else
     return (
       <UserLayout>
-        <UserFormClient />
+        <ReportFormManager />
       </UserLayout>
     );
 }

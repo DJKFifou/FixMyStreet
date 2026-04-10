@@ -3,54 +3,32 @@
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import LocationButton from "@/components/form/LocationButton";
 import TextAreaWithLengthIndicator from "@/components/form/TextAreaWithLengthIndicator";
-import PictureDropzone from "./form/PictureDropzone";
-import { createClient, withUser } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import PictureDropzone from "../form/PictureDropzone";
 import { useState } from "react";
 
 export interface ReportFormData {
   category: string;
   description: string;
-  pictureUrl: string | null;
+  image_url: string | null;
   lat: number | null;
   lon: number | null;
 }
 
 interface ReportFormProps {
-  category?: string;
-  initialData?: Omit<ReportFormData, "category">;
-  onContinue?: (data: Omit<ReportFormData, "category">) => void;
+  category: string;
+  initialData: Omit<ReportFormData, "category"> | null;
+  onContinue: (data: Omit<ReportFormData, "category">) => void;
 }
 
-const ReportForm = ({ category, initialData, onContinue }: ReportFormProps) => {
-  const router = useRouter();
-  const supabase = createClient();
+const ReportFormStep = ({ category, initialData, onContinue }: ReportFormProps) => {
   const [description, setDescription] = useState(initialData?.description ?? "");
-  const [pictureUrl, setPictureUrl] = useState<string | null>(initialData?.pictureUrl ?? null);
+  const [pictureUrl, setPictureUrl] = useState<string | null>(initialData?.image_url ?? null);
   const [lat, setLat] = useState<number | null>(initialData?.lat ?? null);
   const [lon, setLon] = useState<number | null>(initialData?.lon ?? null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (onContinue) {
-      onContinue({ description, pictureUrl, lat, lon });
-      return;
-    }
-
-    await withUser(supabase, router, async ({ user }) => {
-      const { error } = await supabase.from("reports").insert({
-        author_id: user.id,
-        image_url: pictureUrl,
-        lat,
-        lon,
-        description,
-        category,
-      });
-      if (error) throw error;
-
-      router.push("/form/submitted");
-    });
+    onContinue({ description, image_url: pictureUrl, lat, lon });
   };
 
   const getCategoryName = (cat: string) => {
@@ -94,4 +72,4 @@ const ReportForm = ({ category, initialData, onContinue }: ReportFormProps) => {
   );
 };
 
-export default ReportForm;
+export default ReportFormStep;
