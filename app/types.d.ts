@@ -8,8 +8,10 @@ export type ReportType = {
   image_url: string;
   lat: number;
   lon: number;
-  category?: string;
+  category: ReportCategories;
 };
+
+export type ReportCategories = keyof typeof reportCategoryMapper;
 
 export type BeforeInstallPromptEvent = Event & { prompt: () => void; };
 export type HeatmapPoint = [lat: number, lon: number, intensity: number];

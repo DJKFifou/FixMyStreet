@@ -5,16 +5,17 @@ import CategorySelectionStep from "@/components/report-form-manager/CategorySele
 import ValidationStep from "@/components/report-form-manager/ValidationStep";
 import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import type { ReportCategories } from "@/app/types";
 
 
 export default function ReportFormManager() {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<ReportCategories | null>(null);
     const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
     const [formData, setFormData] = useState<ReportFormData | null>(null);
     const router = useRouter();
     const supabase = createClient();
 
-    const handleCategorySelect = (category: string) => {
+    const handleCategorySelect = (category: ReportCategories) => {
         setSelectedCategory(category);
         setStep(2);
     };
@@ -24,7 +25,7 @@ export default function ReportFormManager() {
         await withUser(supabase, router, async ({ user }) => {
             const { error } = await supabase.from("reports").insert({
                 author_id: user.id,
-                ...data,
+                ...formData,
             });
             if (error) throw error;
 

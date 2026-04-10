@@ -1,16 +1,11 @@
 
 import Image from "next/image";
 import PrimaryButton from "../ui/PrimaryButton";
-
-const categories = [
-    { id: "voirie", name: "Dégât sur la voie" },
-    { id: "signalisation", name: "Problème de signalisation" },
-    { id: "eclairage", name: "Éclairage défectueux" },
-    { id: "encombrement", name: "Encombrements / Voie bloquée" },
-];
+import { reportCategoryMapper } from "@/lib/utils/db";
+import type { ReportCategories } from "@/app/types";
 
 interface CategoriesSelectionProps {
-    onCategorySelect: (category: string) => void;
+    onCategorySelect: (category: ReportCategories) => void;
 }
 
 export default function CategorySelectionStep({ onCategorySelect }: CategoriesSelectionProps) {
@@ -29,15 +24,15 @@ export default function CategorySelectionStep({ onCategorySelect }: CategoriesSe
             </div>
             <h1 className="w-full text-center text-3xl leading-10 mb-6.5">Choisissez une catégorie</h1>
             <div className="grid grid-cols-2 gap-4 max-w-md mx-auto ">
-                {categories.map((category) => (
+                {Object.entries(reportCategoryMapper).map(([key, value]) => (
                     <PrimaryButton
-                        key={category.id}
+                        key={key}
                         type="button"
-                        onClick={() => onCategorySelect(category.id)}
+                        onClick={() => onCategorySelect(key as ReportCategories)}
                         classes="h-32 p-4"
                     >
                         <h2 className="text-sm
-                         font-medium text-center leading-tight">{category.name}</h2>
+                         font-medium text-center leading-tight">{value}</h2>
                     </PrimaryButton>
                 ))}
             </div>

@@ -6,9 +6,11 @@ import TextAreaWithLengthIndicator from "@/components/form/TextAreaWithLengthInd
 import PictureDropzone from "../form/PictureDropzone";
 import BackButtonHeader from "../ui/BackButtonHeader";
 import { useState } from "react";
+import type { ReportCategories } from "@/app/types";
+import { reportCategoryMapper } from "@/lib/utils/db";
 
 export interface ReportFormData {
-  category: string;
+  category: ReportCategories;
   description: string;
   image_url: string | null;
   lat: number | null;
@@ -16,7 +18,7 @@ export interface ReportFormData {
 }
 
 interface ReportFormProps {
-  category: string;
+  category: ReportCategories;
   initialData: Omit<ReportFormData, "category"> | null;
   onSubmit: (data: Omit<ReportFormData, "category">) => void;
   goBack: () => void;
@@ -30,37 +32,25 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ description, image_url: pictureUrl, lat, lon });
-  };
-
-  const getCategoryName = (cat: string) => {
-    const categories: { [key: string]: string } = {
-      voirie: "Dégât sur la voie",
-      signalisation: "Problème de signalisation",
-      eclairage: "Éclairage défectueux",
-      encombrement: "Encombrements / Voie bloquée",
-    };
-    return categories[cat] || cat;
+    onSubmit({ description, image_url: pictureUrl, lat: 2, lon: 2 });
   };
 
   return (
     <>
       <BackButtonHeader onClick={goBack} title="Signalement" />
       <form className="flex flex-col gap-5 pb-32 mt-14" onSubmit={handleSubmit}>
-        {category && (
-          <div className="p-4 bg-gray-100 rounded-lg">
-            <label className="block text-lg font-medium text-gray-600 mb-1">
-              Catégorie sélectionnée
-            </label>
-            <input
-              type="text"
-              value={getCategoryName(category)}
-              readOnly
-              className="w-full p-2 border border-gray-300 rounded-md bg-theme-lightGray text-gray-700 cursor-not-allowed"
-            />
-          </div>
-        )}
-        <LocationButton setLat={setLat} setLon={setLon} />
+        <div className="p-4 bg-gray-100 rounded-lg">
+          <label className="block text-lg font-medium text-gray-600 mb-1">
+            Catégorie sélectionnée
+          </label>
+          <input
+            type="text"
+            value={reportCategoryMapper[category as keyof typeof reportCategoryMapper]}
+            readOnly
+            className="w-full p-2 border border-gray-300 rounded-md bg-theme-lightGray text-gray-700 cursor-not-allowed"
+          />
+        </div>
+        {/* <LocationButton setLat={setLat} setLon={setLon} /> */}
         <PictureDropzone setPictureUrl={setPictureUrl} />
         <TextAreaWithLengthIndicator
           label="Description"
