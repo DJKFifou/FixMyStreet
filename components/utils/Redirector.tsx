@@ -1,18 +1,16 @@
 'use client';
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Redirector = ({
-  href,
+  action,
   time = 3,
   additionalClasses = '',
 }: {
-  href: string;
+  action: () => void;
   time?: number;
   additionalClasses?: string;
 }) => {
-  const router = useRouter();
   const [timer, setTimer] = useState<number>(time);
 
   useEffect(() => {
@@ -24,9 +22,9 @@ const Redirector = ({
 
   useEffect(() => {
     if (timer === 0) {
-      router.push(href);
+      action();
     }
-  }, [timer, href, router]);
+  }, [timer, action]);
 
   return <p className={additionalClasses}>Vous allez être redirigé dans {timer} {timer === 1 ? 'seconde' : 'secondes'}...</p>;
 };

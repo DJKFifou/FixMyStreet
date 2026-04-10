@@ -3,8 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { jwtDecode } from "jwt-decode";
 import UserLayout from "@/components/layouts/UserLayout";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import ReportForm from "@/components/ReportForm";
 import Map from "@/components/map/Map";
+import ReportFormManager from "@/components/ReportFormManager";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -25,7 +25,7 @@ export default async function Page() {
   else
     return (
       <UserLayout>
-        <ReportForm />
+        <ReportFormManager />
       </UserLayout>
     );
 }
