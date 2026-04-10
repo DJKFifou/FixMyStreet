@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import ReportFormStep, { ReportFormData } from "@/components/report-form-manager/ReportFormStep";
+import ReportFormStep from "@/components/report-form-manager/ReportFormStep";
 import CategorySelectionStep from "@/components/report-form-manager/CategorySelectionStep";
 import ValidationStep from "@/components/report-form-manager/ValidationStep";
 import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import type { ReportCategories } from "@/app/types";
+import type { ReportCategories, ReportFormData } from "@/app/types";
 
 
 export default function ReportFormManager() {

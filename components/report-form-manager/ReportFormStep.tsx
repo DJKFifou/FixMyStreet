@@ -6,20 +6,12 @@ import TextAreaWithLengthIndicator from "@/components/form/TextAreaWithLengthInd
 import PictureDropzone from "../form/PictureDropzone";
 import BackButtonHeader from "../ui/BackButtonHeader";
 import { useState } from "react";
-import type { ReportCategories } from "@/app/types";
+import type { ReportCategories, ReportFormData } from "@/app/types";
 import { reportCategoryMapper } from "@/lib/utils/db";
-
-export interface ReportFormData {
-  category: ReportCategories;
-  description: string;
-  image_url: string | null;
-  lat: number | null;
-  lon: number | null;
-}
 
 interface ReportFormProps {
   category: ReportCategories;
-  initialData: Omit<ReportFormData, "category"> | null;
+  initialData: ReportFormData | null;
   onSubmit: (data: Omit<ReportFormData, "category">) => void;
   goBack: () => void;
 }
@@ -32,7 +24,7 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ description, image_url: pictureUrl, lat: 2, lon: 2 });
+    onSubmit({ description, image_url: pictureUrl, lat, lon });
   };
 
   return (
@@ -50,7 +42,7 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
             className="w-full p-2 border border-gray-300 rounded-md bg-theme-lightGray text-gray-700 cursor-not-allowed"
           />
         </div>
-        {/* <LocationButton setLat={setLat} setLon={setLon} /> */}
+        <LocationButton setLat={setLat} setLon={setLon} />
         <PictureDropzone setPictureUrl={setPictureUrl} />
         <TextAreaWithLengthIndicator
           label="Description"
