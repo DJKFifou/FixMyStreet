@@ -7,7 +7,7 @@ const ReportCards = async () => {
   const { data: reports }: { data: ReportsType | null } = await supabase
     .from("reports")
     .select("*")
-    .order('created_at', { ascending: false });
+    .order("created_at", { ascending: false });
   console.log(reports);
 
   return (
@@ -17,6 +17,6 @@ const ReportCards = async () => {
       ))}
     </div>
   );
-}
+};
 
 export default ReportCards;
