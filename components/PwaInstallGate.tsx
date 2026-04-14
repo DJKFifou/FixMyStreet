@@ -44,9 +44,9 @@ export default function PwaInstallGate({
     }
   });
 
-  if (isStandalone) {
+  // if (isStandalone) {
   return children;
-  }
+  // }
 
   return <InstallPrompt />;
 }

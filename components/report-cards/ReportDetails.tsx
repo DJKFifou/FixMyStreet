@@ -14,7 +14,6 @@ export default async function ReportDetails({ id }: { id: string }) {
     .single();
   const { image_url, category, created_at, lat, lon, description } =
     report as ReportType;
-  console.log("reportCategoryMapper:", reportCategoryMapper[category]);
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center self-end">
