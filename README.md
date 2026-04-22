@@ -96,17 +96,13 @@ Avant d'installer :
    ```sh
    npm i
    ```
-3. Installez Next globalement
-   ```sh
-   npm i -g next@latest
-   ```
 3. Créez votre fichier `.env` avec les clés API Supabase
    ```sh
    echo "<les-clés-API-à-récupérer>" >> .env
    ```
-5. Lancez l'app
+4. Lancez l'app
    ```sh
-   next dev --experimental-https # flag requis pour faire que le navigateur prenne en compte la PWA
+   npm run dev --experimental-https # flag requis pour faire que le navigateur prenne en compte la PWA
    ```
 
 <p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
