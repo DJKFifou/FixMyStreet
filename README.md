@@ -63,8 +63,6 @@ Une application de signalement des défauts routiers pour les cyclistes de Borde
 
 ### Construit avec
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
 * [![Tailwind][Tailwindcss.com]][Tailwindcss-url]
