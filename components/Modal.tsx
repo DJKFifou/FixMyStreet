@@ -3,7 +3,7 @@ import { formatDate } from "@/lib/utils/date";
 import { reportCategoryMapper } from "@/lib/utils/db";
 import ReportLocation from "./report-cards/ReportLocation";
 import Image from "next/image";
-import BackLinkHeader from "./ui/BackLinkHeader";
+import BackButtonHeader from "./ui/BackButtonHeader";
 
 export default function Modal({
   report,
@@ -16,9 +16,12 @@ export default function Modal({
 }) {
   return (
     <div
-      className={`fixed top-0 right-0 w-full h-full z-1000 bg-white rounded-l-lg translate-x-full transition-all duration-700 ${isOpen ? "translate-x-0!" : ""}`}
+      className={`fixed top-0 right-0 w-full h-full z-1000 bg-white rounded-l-lg transition-all duration-700 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
     >
-      <BackLinkHeader title="Détails de votre signalement" onClick={onClose} />
+      <BackButtonHeader
+        title="Détails de votre signalement"
+        onClick={onClose}
+      />
       <div className="flex flex-col gap-5 mt-24 px-6">
         <div className="flex items-center self-end">
           <div className="flex gap-1.5 items-center bg-theme-orange text-white rounded-xl p-2 font-sans font-semibold text-xs">

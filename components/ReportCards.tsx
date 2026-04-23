@@ -8,6 +8,7 @@ const ReportCards = async () => {
     .from("reports")
     .select("*")
     .order("created_at", { ascending: false });
+  console.log("Fetched reports:", reports);
 
   return (
     <div className="w-full flex flex-col gap-4">
