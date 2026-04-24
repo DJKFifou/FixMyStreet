@@ -6,7 +6,6 @@ import { HeatmapPoint, ReportType, ReportsType } from "@/app/types";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import dynamic from "next/dynamic";
 import ReportCard from "../report-cards/ReportCard";
-import Modal from "../Modal";
 
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
@@ -20,8 +19,6 @@ export default function MapView() {
   const [reports, setReports] = useState<ReportsType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedReport, setSelectedReport] = useState<ReportType | null>(null);
-
-  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
