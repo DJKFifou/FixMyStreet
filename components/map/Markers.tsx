@@ -1,12 +1,9 @@
 "use client";
 
-import ReportCard from "../report-cards/ReportCard";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { Marker, Popup } from "react-leaflet";
-import { MarkerCluster, ReportsType } from "@/app/types";
+import { Marker } from "react-leaflet";
+import { MarkerCluster, ReportType, ReportsType } from "@/app/types";
 import { divIcon, icon, point } from "leaflet";
-import 'leaflet/dist/leaflet.css';
-import 'react-leaflet-markercluster/styles';
 
 /* DEFAULTS */
 const maxClusterRadius = 8;
@@ -15,13 +12,20 @@ const maxClusterRadius = 8;
 const createClusterCustomIcon = (cluster: MarkerCluster) => {
   return divIcon({
     html: `<p>${cluster.getChildCount()}</p>`,
-    className: 'bg-theme-blue flex! items-center justify-center rounded-full text-white text-lg font-bold',
+    className:
+      "bg-theme-blue flex! items-center justify-center rounded-full text-white text-lg font-bold",
     iconSize: point(40, 40, true),
   });
-}
+};
 
 /* COMPONENT */
-const Markers = ({ reports }: { reports: ReportsType | null }) => {
+const Markers = ({
+  reports,
+  onMarkerClick,
+}: {
+  reports: ReportsType | null;
+  onMarkerClick: (report: ReportType) => void;
+}) => {
   if (!reports) return null;
 
   const markerIcon = icon({
@@ -31,23 +35,24 @@ const Markers = ({ reports }: { reports: ReportsType | null }) => {
     popupAnchor: [-3, -76],
   });
 
-  return(
+  return (
     <MarkerClusterGroup
-    showCoverageOnHover={false}
-    iconCreateFunction={createClusterCustomIcon}
-    removeOutsideVisibleBounds={true}
-    spiderLegPolylineOptions={{ opacity: 0 }}
-    maxClusterRadius={maxClusterRadius}
-    animate={true}
+      showCoverageOnHover={false}
+      iconCreateFunction={createClusterCustomIcon}
+      removeOutsideVisibleBounds={true}
+      spiderLegPolylineOptions={{ opacity: 0 }}
+      maxClusterRadius={maxClusterRadius}
+      animate={true}
     >
       {reports.map((report) => {
         const { lat, lon } = report;
-        return(
-          <Marker key={report.id} position={[lat, lon]} icon={markerIcon}>
-            <Popup>
-              <ReportCard report={report} />
-            </Popup>
-          </Marker>
+        return (
+          <Marker
+            key={report.id}
+            position={[lat, lon]}
+            icon={markerIcon}
+            eventHandlers={{ click: () => onMarkerClick(report) }}
+          />
         );
       })}
     </MarkerClusterGroup>

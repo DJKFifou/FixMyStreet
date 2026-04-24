@@ -1,39 +1,86 @@
+"use client";
+
 import { ReportType } from "@/app/types";
 import { formatDate } from "@/lib/utils/date";
+import { reportCategoryMapper } from "@/lib/utils/db";
 import ReportLocation from "./ReportLocation";
+import { useState } from "react";
+import Modal from "../Modal";
 
 const ReportCard = ({
-  report: { created_at, description, lat, lon },
+  report: { created_at, description, lat, lon, category, image_url },
+  setSelectedReport,
 }: {
   report: ReportType;
-}) => (
-  <div className="w-full bg-white rounded-xl shadow-md border border-theme-offWhite overflow-hidden">
-    <div className="flex items-center justify-between p-4 ">
-      <span className="material-symbols-outlined text-theme-blue text-3xl ml-auto">
-        traffic
-      </span>
-    </div>
+  selectedReport?: ReportType;
+  setSelectedReport?: (report: ReportType | null) => void;
+}) => {
+  const isOverlayCard = Boolean(setSelectedReport);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const report = {
+    created_at,
+    description,
+    lat,
+    lon,
+    category,
+    image_url,
+  } as ReportType;
 
-    <div className="flex flex-col gap-4 p-5 ml-4 mr-4">
-      <div className="flex items-center gap-2 text-theme-lightBlack text-sm font-medium">
-        <span className="material-symbols-outlined text-base">
-          calendar_month
-        </span>
-        <span>{formatDate(created_at)}</span>
-      </div>
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
-      <div className="flex items-center gap-2 text-theme-lightBlack text-sm">
-        <ReportLocation lat={lat} lon={lon} />
-      </div>
+  return (
+    <>
+      <div
+        className={`${isOverlayCard && "absolute right-0 top-0 z-1000 w-75 md:w-105 m-4.5"} cursor-pointer drop-shadow-md pb-8 rounded-2xl bg-white flex flex-col gap-5 p-6 max-w-full`}
+      >
+        {isOverlayCard && (
+          <button
+            type="button"
+            onClick={() => setSelectedReport && setSelectedReport(null)}
+            className="rounded-full text-theme-lightBlack self-end material-symbols-outlined transition-colors cursor-pointer hover:bg-theme-offWhite"
+            aria-label="Close report details"
+          >
+            close
+          </button>
+        )}
+        <div
+          className="flex flex-col gap-5"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <div className="flex items-center self-end">
+            <div className="flex gap-1.5 items-center bg-theme-orange text-white rounded-xl p-2 font-sans font-medium text-xs">
+              <span className="material-symbols-outlined">play_arrow</span>
+              <span>En cours</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 text-theme-lightBlack text-sm font-medium">
+            <span className="material-symbols-outlined text-base">
+              calendar_month
+            </span>
+            <span>{formatDate(created_at)}</span>
+          </div>
 
-      <div className="flex flex-col gap-1">
-        <p className="text-theme-lightBlack font-medium">Description :</p>
-        <p className="text-theme-darkGrey text-sm leading-relaxed">
-          {description}
-        </p>
+          <div className="flex items-center gap-2 text-theme-lightBlack text-sm">
+            <ReportLocation lat={lat} lon={lon} />
+          </div>
+
+          <span className="py-2 px-6 text-sm font-semibold bg-theme-blue rounded-full text-theme-white w-fit">
+            {reportCategoryMapper[category]}
+          </span>
+
+          <div className="flex flex-col gap-1">
+            <p className="text-theme-lightBlack font-medium">Description :</p>
+            <p className="text-theme-darkGrey text-sm leading-relaxed">
+              {description}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-);
+      <Modal report={report} isOpen={isModalOpen} onClose={handleCloseModal} />
+    </>
+  );
+};
 
 export default ReportCard;

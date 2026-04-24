@@ -1,6 +1,7 @@
 export type ReportsType = ReportType[];
 export type ReportType = {
   id: number;
+  category: string;
   created_at: string;
   description: string;
   author_id: string;
@@ -16,8 +17,8 @@ export type ReportFormData = {
   image_url: string | null;
   lat: number | null;
   lon: number | null;
-}
+};
 
-export type BeforeInstallPromptEvent = Event & { prompt: () => void; };
+export type BeforeInstallPromptEvent = Event & { prompt: () => void };
 export type HeatmapPoint = [lat: number, lon: number, intensity: number];
-export type MarkerCluster = { getChildCount: () => number; };
+export type MarkerCluster = { getChildCount: () => number };

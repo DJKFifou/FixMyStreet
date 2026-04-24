@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { ReportsType, HeatmapPoint } from "@/app/types";
+import { HeatmapPoint, ReportType, ReportsType } from "@/app/types";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import dynamic from "next/dynamic";
+import ReportCard from "../report-cards/ReportCard";
 
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
@@ -17,6 +18,7 @@ const heatmapLayerRadius = 40;
 export default function MapView() {
   const [reports, setReports] = useState<ReportsType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedReport, setSelectedReport] = useState<ReportType | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -34,14 +36,22 @@ export default function MapView() {
       <Container>
         {reports && (
           <HeatmapLayer
-            points={reports.map(({ lat, lon }) => [lat, lon, 1] as HeatmapPoint)}
+            points={reports.map(
+              ({ lat, lon }) => [lat, lon, 1] as HeatmapPoint,
+            )}
             longitudeExtractor={heatmapLayerLongitude}
             latitudeExtractor={heatmapLayerLatitude}
             intensityExtractor={heatmapLayerIntensity}
             radius={heatmapLayerRadius}
           />
         )}
-        <Markers reports={reports} />
+        <Markers reports={reports} onMarkerClick={setSelectedReport} />
+        {selectedReport && (
+          <ReportCard
+            report={selectedReport}
+            setSelectedReport={setSelectedReport}
+          />
+        )}
       </Container>
       {isLoading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/20">

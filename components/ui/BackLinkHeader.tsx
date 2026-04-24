@@ -4,7 +4,7 @@ import BackHeader, { Content, contentWrapperClasses } from "./BackHeader";
 interface BackLinkHeaderProps {
   href: string;
   title: string;
-};
+}
 
 const BackLinkHeader = ({ href, title }: BackLinkHeaderProps) => (
   <BackHeader>
