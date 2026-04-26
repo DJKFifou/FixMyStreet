@@ -49,7 +49,7 @@ export default function MapView() {
         {selectedReport && (
           <ReportCard
             report={selectedReport}
-            setSelectedReport={setSelectedReport}
+            onClose={() => setSelectedReport(null)}
           />
         )}
       </Container>

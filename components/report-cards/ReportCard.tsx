@@ -9,14 +9,15 @@ import Modal from "../Modal";
 
 const ReportCard = ({
   report: { created_at, description, lat, lon, category, image_url },
-  setSelectedReport,
+  onClick,
+  onClose,
 }: {
   report: ReportType;
-  selectedReport?: ReportType;
-  setSelectedReport?: (report: ReportType | null) => void;
+  onClick?: () => void;
+  onClose?: () => void;
 }) => {
-  const isOverlayCard = Boolean(setSelectedReport);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isOverlayCard = Boolean(onClose);
+  const [isModalOpen, setModalOpen] = useState(false);
   const report = {
     created_at,
     description,
@@ -26,10 +27,6 @@ const ReportCard = ({
     image_url,
   } as ReportType;
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
       <div
@@ -38,7 +35,7 @@ const ReportCard = ({
         {isOverlayCard && (
           <button
             type="button"
-            onClick={() => setSelectedReport && setSelectedReport(null)}
+            onClick={() => onClose && onClose()}
             className="rounded-full text-theme-lightBlack self-end material-symbols-outlined transition-colors cursor-pointer hover:bg-theme-offWhite"
             aria-label="Close report details"
           >
@@ -47,7 +44,7 @@ const ReportCard = ({
         )}
         <div
           className="flex flex-col gap-5"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
           <div className="flex items-center self-end">
             <div className="flex gap-1.5 items-center bg-theme-orange text-white rounded-xl p-2 font-sans font-medium text-xs">
@@ -78,7 +75,11 @@ const ReportCard = ({
           </div>
         </div>
       </div>
-      <Modal report={report} isOpen={isModalOpen} onClose={handleCloseModal} />
+      <Modal
+        report={report}
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </>
   );
 };
