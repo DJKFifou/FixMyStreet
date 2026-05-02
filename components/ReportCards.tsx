@@ -7,8 +7,7 @@ const ReportCards = async () => {
   const { data: reports }: { data: ReportsType | null } = await supabase
     .from("reports")
     .select("*")
-    .order('created_at', { ascending: false });
-  console.log(reports);
+    .order("created_at", { ascending: false });
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -17,6 +16,6 @@ const ReportCards = async () => {
       ))}
     </div>
   );
-}
+};
 
 export default ReportCards;
