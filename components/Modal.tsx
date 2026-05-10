@@ -4,16 +4,18 @@ import { reportCategoryMapper } from "@/lib/utils/db";
 import ReportLocation from "./report-cards/ReportLocation";
 import Image from "next/image";
 import BackButtonHeader from "./ui/BackButtonHeader";
-import Status from "./ui/reports/Status";
+import StatusUpdater from "./ui/reports/StatusUpdater";
 
 export default function Modal({
   report,
   isOpen,
   onClose,
+  onStatusChange,
 }: {
   report: ReportType;
   isOpen: boolean;
   onClose: () => void;
+  onStatusChange?: (status: string) => void;
 }) {
   return (
     <div
@@ -67,7 +69,7 @@ export default function Modal({
         </div>
 
         <div className="flex flex-col">
-          <Status report={report} />
+          <StatusUpdater report={report} onStatusChange={onStatusChange} />
         </div>
       </div>
     </div>

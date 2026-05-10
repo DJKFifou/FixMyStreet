@@ -23,13 +23,19 @@ export default function ReportFormManager() {
     const handleFormContinuation = async (data: Omit<ReportFormData, "category">) => {
         setFormData({ ...data, category: selectedCategory! });
         await withUser(supabase, router, async ({ user }) => {
-            const { error } = await supabase.from("reports").insert({
-                author_id: user.id,
-                ...formData,
-            });
-            if (error) throw error;
+            const { data: report, error: reportError } = await supabase
+                .from("reports")
+                .insert({ author_id: user.id, ...formData })
+                .select("id")
+                .single();
+            if (reportError) throw reportError;
 
-            setStep(4); //à remplacer par le 3 quand il sera créé 
+            const { error: statusError } = await supabase
+                .from("statuses")
+                .insert({ report_id: report.id, state: "created" });
+            if (statusError) throw statusError;
+
+            setStep(4); //à remplacer par le 3 quand il sera créé
         });
     };
 

@@ -1,3 +1,19 @@
+import type { createClient } from "@/lib/supabase/client";
+
+export async function fetchLatestStatus(
+  supabase: ReturnType<typeof createClient>,
+  reportId: number
+): Promise<string> {
+  const { data } = await supabase
+    .from("statuses")
+    .select("state")
+    .eq("report_id", reportId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+  return data!.state;
+}
+
 export const reportCategoryMapper: { [key: string]: string } = {
   road_damage: "Dégât sur la voie",
   signage: "Problème de signalisation",

@@ -2,11 +2,12 @@
 
 import { ReportType } from "@/app/types";
 import { formatDate } from "@/lib/utils/date";
-import { reportCategoryMapper } from "@/lib/utils/db";
+import { reportCategoryMapper, fetchLatestStatus } from "@/lib/utils/db";
 import ReportLocation from "./ReportLocation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import Status from "../ui/reports/Status";
+import { createClient } from "@/lib/supabase/client";
 
 const ReportCard = ({
   report,
@@ -19,7 +20,13 @@ const ReportCard = ({
 }) => {
   const isOverlayCard = Boolean(onClose);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [currentStatus, setCurrentStatus] = useState<string | null>(null);
   const { created_at, lat, lon, category, description } = report;
+
+  useEffect(() => {
+    const supabase = createClient();
+    fetchLatestStatus(supabase, report.id).then(setCurrentStatus);
+  }, [report.id]);
 
   return (
     <>
@@ -41,7 +48,7 @@ const ReportCard = ({
           onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
           <div className="absolute top-0 right-0">
-            <Status report={report} />
+            {currentStatus && <Status report={report} statusOverride={currentStatus} />}
           </div>
 
           <div className="flex items-center gap-2.5 text-theme-lightBlack text-sm font-medium">
@@ -71,6 +78,7 @@ const ReportCard = ({
         report={report}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
+        onStatusChange={setCurrentStatus}
       />
     </>
   );
