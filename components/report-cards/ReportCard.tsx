@@ -6,9 +6,10 @@ import { reportCategoryMapper } from "@/lib/utils/db";
 import ReportLocation from "./ReportLocation";
 import { useState } from "react";
 import Modal from "../Modal";
+import Status from "../ui/reports/Status";
 
 const ReportCard = ({
-  report: { created_at, description, lat, lon, category, image_url },
+  report,
   onClick,
   onClose,
 }: {
@@ -18,14 +19,7 @@ const ReportCard = ({
 }) => {
   const isOverlayCard = Boolean(onClose);
   const [isModalOpen, setModalOpen] = useState(false);
-  const report = {
-    created_at,
-    description,
-    lat,
-    lon,
-    category,
-    image_url,
-  } as ReportType;
+  const { created_at, lat, lon, category, description } = report;
 
   return (
     <>
@@ -43,15 +37,13 @@ const ReportCard = ({
           </button>
         )}
         <div
-          className="flex flex-col gap-5"
+          className="relative flex flex-col gap-5"
           onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
-          <div className="flex items-center self-end">
-            <div className="flex gap-1.5 items-center bg-theme-orange text-white rounded-xl p-2 font-sans font-medium text-xs">
-              <span className="material-symbols-outlined">play_arrow</span>
-              <span>En cours</span>
-            </div>
+          <div className="absolute top-0 right-0">
+            <Status report={report} />
           </div>
+
           <div className="flex items-center gap-2.5 text-theme-lightBlack text-sm font-medium">
             <span className="material-symbols-outlined text-base">
               calendar_month

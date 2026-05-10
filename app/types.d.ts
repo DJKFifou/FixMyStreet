@@ -9,6 +9,7 @@ export type ReportType = {
   lat: number;
   lon: number;
   category: ReportCategories;
+  status: string;
 };
 export type ReportCategories = keyof typeof reportCategoryMapper;
 export type ReportFormData = {
