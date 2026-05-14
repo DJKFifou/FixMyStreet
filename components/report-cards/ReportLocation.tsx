@@ -7,7 +7,7 @@ const ReportLocationSkeleton = () => (
   <div className="grow bg-theme-grey h-4 animate-pulse rounded-sm"></div>
 );
 
-const ReportLocation = ({ lat, lon }: { lat: number, lon: number }) => {
+const ReportLocation = ({ lat, lon, showIcon = true }: { lat: number; lon: number; showIcon?: boolean }) => {
   const [location, setLocation] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,7 +26,7 @@ const ReportLocation = ({ lat, lon }: { lat: number, lon: number }) => {
 
   return (
     <div className="w-full flex items-center gap-2 mb-3">
-      <i className="material-symbols-outlined">location_on</i>
+      {showIcon && <i className="material-symbols-outlined">location_on</i>}
       {error || location ? <p>{error || location}</p> : <ReportLocationSkeleton />}
     </div>
   );

@@ -38,22 +38,17 @@ export default function ReportFormManager() {
     };
 
     const handleFinalConfirmation = async () => {
-        if (!formData) return;
-
-        try {
-            await withUser(supabase, router, async ({ user }) => {
-                const { error } = await supabase.from("reports").insert({
-                    author_id: user.id,
-                    ...formData,
-                });
-
-                if (error) throw error;
-
-                setStep(4);
+        await withUser(supabase, router, async ({ user }) => {
+            const { error } = await supabase.from("reports").insert({
+                author_id: user.id,
+                ...formData,
             });
-        } catch (err) {
-            console.error("Erreur lors de l'envoi du rapport :", err);
-        }
+
+            if (error) throw error;
+
+            setStep(4);
+        });
+
     };
 
     const restartForm = () => {

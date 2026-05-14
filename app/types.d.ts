@@ -9,7 +9,8 @@ export type ReportType = {
   lon: number;
   category: ReportCategories;
 };
-export type ReportCategories = keyof typeof import("@/lib/utils/db").reportCategoryMapper;
+
+export type ReportCategories = keyof typeof reportCategoryMapper;
 export type ReportFormData = {
   category: ReportCategories;
   description: string;
