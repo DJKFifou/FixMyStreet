@@ -27,7 +27,7 @@ const ReportLocation = ({ lat, lon, showIcon = true }: { lat: number; lon: numbe
   return (
     <div className="w-full flex items-center gap-2 mb-3">
       {showIcon && <i className="material-symbols-outlined">location_on</i>}
-      {error || location ? <p>{error || location}</p> : <ReportLocationSkeleton />}
+      {error || location ? <p className="text-base text-gray-700 whitespace-pre-line">{error || location}</p> : <ReportLocationSkeleton />}
     </div>
   );
 };

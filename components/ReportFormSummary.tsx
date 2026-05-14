@@ -46,17 +46,13 @@ const ReportFormSummary = ({ data, onBack, onConfirm }: ReportFormSummaryProps) 
 
                 <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg min-w-0">
                     <p className="text-sm font-medium mb-1">Photo :</p>
-                    {data.image_url ? (
-                        <Image
-                            src={data.image_url}
-                            alt="Aperçu de la photo"
-                            width={400}
-                            height={192}
-                            className="w-full h-48 object-contain rounded-md"
-                        />
-                    ) : (
-                        <p className="text-base text-gray-700">Aucune image ajoutée.</p>
-                    )}
+                    <Image
+                        src={data.image_url}
+                        alt="Photo descriptive du sujet du signalement"
+                        width={400}
+                        height={192}
+                        className="w-full h-48 object-contain rounded-md"
+                    />
                 </div>
 
                 <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg min-w-0">
