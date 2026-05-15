@@ -9,8 +9,10 @@ import MandatoryAsterisk from "../ui/MandatoryAsterisk";
 import Error from "../ui/Error";
 
 const PictureDropzone = ({
+  pictureUrl,
   setPictureUrl,
 }: {
+  pictureUrl: string | null,
   setPictureUrl: (url: string) => void;
 }) => {
   const supabase = createClient();
@@ -55,7 +57,7 @@ const PictureDropzone = ({
 
   const getInputText = () => {
     if (loading) return "Chargement de la photo...";
-    if (picture) return "Changer de photo";
+    if (pictureUrl || picture) return "Changer de photo";
     return "Ajouter ou prendre une photo";
   };
 
@@ -79,9 +81,9 @@ const PictureDropzone = ({
         />
       </label>
       {loading && <LoadingImage />}
-      {picture && !loading && (
+      {(pictureUrl || picture) && !loading && (
         <Image
-          src={URL.createObjectURL(picture)}
+          src={pictureUrl || URL.createObjectURL(picture!)}
           alt="Picture"
           width={100}
           height={100}

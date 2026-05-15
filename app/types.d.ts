@@ -2,7 +2,7 @@ export type ReportsType = ReportType[];
 export type ReportType = {
   id: number;
   created_at: string;
-  description: string;
+  description: string | null;
   author_id: string;
   image_url: string;
   lat: number;
@@ -13,10 +13,10 @@ export type ReportType = {
 export type ReportCategories = keyof typeof reportCategoryMapper;
 export type ReportFormData = {
   category: ReportCategories;
-  description: string;
-  image_url: string | null;
-  lat: number | null;
-  lon: number | null;
+  lat: number;
+  lon: number;
+  image_url: string;
+  description: string | null;
 }
 
 export type BeforeInstallPromptEvent = Event & { prompt: () => void; };

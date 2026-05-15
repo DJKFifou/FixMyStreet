@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import ReportFormStep from "@/components/report-form-manager/ReportFormStep";
+import FormStep from "@/components/report-form-manager/FormStep";
 import CategorySelectionStep from "@/components/report-form-manager/CategorySelectionStep";
 import ValidationStep from "@/components/report-form-manager/ValidationStep";
-import ReportFormSummary from "@/components/ReportFormSummary";
+import SummaryStep from "@/components/report-form-manager/SummaryStep";
 import { createClient, withUser } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import type { ReportCategories, ReportFormData } from "@/app/types";
@@ -60,7 +60,7 @@ export default function ReportFormManager() {
     switch (step) {
         case 2:
             return (
-                <ReportFormStep
+                <FormStep
                     category={selectedCategory!}
                     initialData={formData}
                     onSubmit={handleFormContinuation}
@@ -70,7 +70,7 @@ export default function ReportFormManager() {
 
         case 3:
             return (
-                <ReportFormSummary
+                <SummaryStep
                     data={formData!}
                     onBack={() => setStep(2)}
                     onConfirm={handleFinalConfirmation}
