@@ -23,7 +23,7 @@ const ReportCards = ({
       supabase
         .from("reports")
         .select("*")
-        .order("created_at", { ascending: false })
+        .order("created_at", { ascending: true })
         .then(({ data }) => {
           setFinalReports(data);
           setIsLoading(false);

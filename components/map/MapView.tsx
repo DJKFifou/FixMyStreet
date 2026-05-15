@@ -28,6 +28,7 @@ export default function MapView() {
     supabase
       .from("reports")
       .select("*")
+      .order("created_at", { ascending: false })
       .then(({ data }) => {
         setReports(data);
         setIsLoading(false);
