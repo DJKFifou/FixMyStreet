@@ -7,15 +7,25 @@ import Error from "@/components/ui/Error";
 import { useState } from "react";
 
 export default function LocationButton({
+  lat,
+  lon,
   setLat,
   setLon,
 }: {
+  lat: number | null;
+  lon: number | null;
   setLat: (lat: number) => void;
   setLon: (lon: number) => void;
 }) {
   const [error, setError] = useState<string | null>(null);
   const [location, setLocation] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  if (lat && lon) {
+    const coords = { latitude: lat, longitude: lon } as GeolocationCoordinates;
+    const pos = { coords } as GeolocationPosition;
+    locationSuccess(pos);
+  }
 
   const texts = {
     title: "Se géolocaliser",

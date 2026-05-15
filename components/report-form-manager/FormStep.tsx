@@ -8,15 +8,16 @@ import BackButtonHeader from "../ui/BackButtonHeader";
 import { useState } from "react";
 import type { ReportCategories, ReportFormData } from "@/app/types";
 import { reportCategoryMapper } from "@/lib/utils/db";
+import Recap from "../ui/Recap";
 
-interface ReportFormProps {
+interface FormProps {
   category: ReportCategories;
   initialData: ReportFormData | null;
   onSubmit: (data: Omit<ReportFormData, "category">) => void;
   goBack: () => void;
 }
 
-const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormProps) => {
+const FormStep = ({ category, initialData, onSubmit, goBack }: FormProps) => {
   const [description, setDescription] = useState(initialData?.description ?? "");
   const [pictureUrl, setPictureUrl] = useState<string | null>(initialData?.image_url ?? null);
   const [lat, setLat] = useState<number | null>(initialData?.lat ?? null);
@@ -24,6 +25,8 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!pictureUrl || !lat || !lon) return;
+
     onSubmit({ description, image_url: pictureUrl, lat, lon });
   };
 
@@ -31,19 +34,11 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
     <>
       <BackButtonHeader onClick={goBack} title="Signalement" />
       <form className="flex flex-col gap-5 pb-32 mt-14" onSubmit={handleSubmit}>
-        <div className="p-4 bg-gray-100 rounded-lg">
-          <label className="block text-lg font-medium text-gray-600 mb-1">
-            Catégorie sélectionnée
-          </label>
-          <input
-            type="text"
-            value={reportCategoryMapper[category as keyof typeof reportCategoryMapper]}
-            readOnly
-            className="w-full p-2 border border-gray-300 rounded-md bg-theme-lightGray text-gray-700 cursor-not-allowed"
-          />
-        </div>
-        <LocationButton setLat={setLat} setLon={setLon} />
-        <PictureDropzone setPictureUrl={setPictureUrl} />
+        <Recap title="Catégorie">
+            {reportCategoryMapper[category]}
+        </Recap>
+        <LocationButton lat={lat} lon={lon} setLat={setLat} setLon={setLon} />
+        <PictureDropzone pictureUrl={pictureUrl} setPictureUrl={setPictureUrl} />
         <TextAreaWithLengthIndicator
           label="Description"
           value={description}
@@ -59,4 +54,4 @@ const ReportFormStep = ({ category, initialData, onSubmit, goBack }: ReportFormP
   );
 };
 
-export default ReportFormStep;
+export default FormStep;

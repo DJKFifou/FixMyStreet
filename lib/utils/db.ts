@@ -1,3 +1,4 @@
+import { ReportCategories } from "@/app/types";
 import type { createClient } from "@/lib/supabase/client";
 
 export async function fetchLatestStatus(
@@ -14,7 +15,7 @@ export async function fetchLatestStatus(
   return data!.state;
 }
 
-export const reportCategoryMapper: { [key: string]: string } = {
+export const reportCategoryMapper: { [key: ReportCategories]: string } = {
   road_damage: "Dégât sur la voie",
   signage: "Problème de signalisation",
   lighting: "Éclairage défectueux",
