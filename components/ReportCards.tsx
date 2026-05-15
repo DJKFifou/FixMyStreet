@@ -1,18 +1,52 @@
-import { ReportsType } from "@/app/types";
-import { createClient } from "@/lib/supabase/server";
-import ReportCard from "./report-cards/ReportCard";
+"use client";
 
-const ReportCards = async () => {
-  const supabase = await createClient();
-  const { data: reports }: { data: ReportsType | null } = await supabase
-    .from("reports")
-    .select("*")
-    .order("created_at", { ascending: false });
+import { ReportsType, ReportType } from "@/app/types";
+import ReportCard from "./report-cards/ReportCard";
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+const ReportCards = ({
+  reports,
+  onCardClick,
+}: {
+  reports?: ReportsType | null;
+  onCardClick?: (report: ReportType) => void;
+}) => {
+  const [finalReports, setFinalReports] = useState<ReportsType | null>(
+    reports || null,
+  );
+  const [isLoading, setIsLoading] = useState(!reports);
+
+  useEffect(() => {
+    if (!reports) {
+      const supabase = createClient();
+      supabase
+        .from("reports")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .then(({ data }) => {
+          setFinalReports(data);
+          setIsLoading(false);
+        });
+    }
+  }, [reports]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full flex justify-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-theme-blue border-t-transparent" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {reports?.map((report) => (
-        <ReportCard key={report.id} report={report} />
+      {finalReports?.map((report) => (
+        <ReportCard
+          key={report.id}
+          report={report}
+          onClick={onCardClick ? () => onCardClick(report) : undefined}
+        />
       ))}
     </div>
   );
