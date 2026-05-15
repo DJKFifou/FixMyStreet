@@ -17,7 +17,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col min-h-svh">
       <div className="fixed top-0 left-0 w-full grow flex flex-col justify-end">
-        <nav className="bg-theme-blue text-white p-5 shadow-t-sm">
+        <nav className="bg-theme-blue text-white py-2 px-5 shadow-t-sm">
           <ul className="flex justify-between items-center">
             <li className="flex-1 flex items-center">
               <Link href="/" className="material-symbols-outlined">
@@ -30,21 +30,21 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
               </span>
             </li>
             <div className="flex-1 flex items-center justify-end gap-4 text-lg font-medium">
-              {/* <li>
+              <li>
                 <Link href="/reports" className="leading-none">
-                  Reports
+                  Signalements
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/settings" className="leading-none">
-                  Settings
+                  Profil
                 </Link>
               </li> */}
             </div>
           </ul>
         </nav>
       </div>
-      <div className="flex flex-col grow mt-16">{children}</div>
+      <div className="flex flex-col grow mt-11">{children}</div>
     </div>
   );
 };
