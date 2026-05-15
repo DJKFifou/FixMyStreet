@@ -19,7 +19,7 @@ export default function Modal({
 }) {
   return (
     <div
-      className={`fixed top-0 right-0 w-full h-full z-1000 bg-white rounded-l-lg transition-all duration-700 ${isOpen ? "translate-x-0" : "translate-x-[calc(100%+1.25rem)]"}`}
+      className={`fixed top-0 right-0 w-full h-full z-1000 bg-white rounded-l-lg transition-all duration-700 overflow-y-auto ${isOpen ? "translate-x-0" : "translate-x-[calc(100%+1.25rem)]"}`}
     >
       <BackButtonHeader
         title="Détails de votre signalement"
