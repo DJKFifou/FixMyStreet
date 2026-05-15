@@ -44,12 +44,7 @@ export default function ReportFormManager() {
                 .insert({ author_id: user.id, ...formData })
                 .select("id")
                 .single();
-            if (reportError) throw reportError;
-
-            const { error: statusError } = await supabase
-                .from("statuses")
-                .insert({ report_id: report.id, state: "created" });
-            if (statusError) throw statusError;
+            if (reportError) throw new Error(reportError.message);
 
             setStep(4); //à remplacer par le 3 quand il sera créé
         });

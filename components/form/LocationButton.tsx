@@ -22,7 +22,9 @@ export default function LocationButton({
   const [loading, setLoading] = useState<boolean>(false);
 
   if (lat && lon) {
-    locationSuccess({ coords: { latitude: lat, longitude: lon } } as GeolocationPosition);
+    const coords = { latitude: lat, longitude: lon } as GeolocationCoordinates;
+    const pos = { coords } as GeolocationPosition;
+    locationSuccess(pos);
   }
 
   const texts = {
