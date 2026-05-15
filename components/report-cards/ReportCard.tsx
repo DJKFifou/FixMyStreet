@@ -31,7 +31,8 @@ const ReportCard = ({
   return (
     <>
       <div
-        className={`${isOverlayCard && "absolute right-0 top-0 z-1000 w-75 md:w-105 m-4.5"} cursor-pointer drop-shadow-md pb-8 rounded-2xl bg-white flex flex-col gap-5 p-6 max-w-full`}
+        className={`${isOverlayCard && "absolute right-0 top-0 z-1000 w-75 md:w-105 m-5"} cursor-pointer drop-shadow-md pb-8 rounded-2xl bg-white flex flex-col gap-5 p-6 max-w-full`}
+        onClick={() => (onClick ? onClick() : setModalOpen(true))}
       >
         {isOverlayCard && (
           <button
@@ -48,7 +49,9 @@ const ReportCard = ({
           onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
           <div className="absolute top-0 right-0">
-            {currentStatus && <Status report={report} statusOverride={currentStatus} />}
+            {currentStatus && (
+              <Status report={report} statusOverride={currentStatus} />
+            )}
           </div>
 
           <div className="flex items-center gap-2.5 text-theme-lightBlack text-sm font-medium">

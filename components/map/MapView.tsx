@@ -9,6 +9,9 @@ import ReportCard from "../report-cards/ReportCard";
 
 const Container = dynamic(() => import("./Container"), { ssr: false });
 const Markers = dynamic(() => import("./Markers"), { ssr: false });
+const ModalReportCards = dynamic(() => import("../ModalReportCards"), {
+  ssr: false,
+});
 
 const heatmapLayerLongitude = (m: HeatmapPoint) => m[1];
 const heatmapLayerLatitude = (m: HeatmapPoint) => m[0];
@@ -25,6 +28,7 @@ export default function MapView() {
     supabase
       .from("reports")
       .select("*")
+      .order("created_at", { ascending: false })
       .then(({ data }) => {
         setReports(data);
         setIsLoading(false);
@@ -46,11 +50,13 @@ export default function MapView() {
           />
         )}
         <Markers reports={reports} onMarkerClick={setSelectedReport} />
-        {selectedReport && (
+        {selectedReport ? (
           <ReportCard
             report={selectedReport}
             onClose={() => setSelectedReport(null)}
           />
+        ) : (
+          <ModalReportCards reports={reports} />
         )}
       </Container>
       {isLoading && (
