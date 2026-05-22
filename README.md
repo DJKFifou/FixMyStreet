@@ -31,7 +31,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://fixmystreet.maximelust.fr)
 
-Projet en trio d'étudiants à l'ECV Bordeaux en zème année de Mastère Lead Developer Frontend.
+Projet en trio d'étudiants à l'ECV Bordeaux en 2ème année de Mastère Lead Developer Frontend.
 
 Une application de signalement des défauts routiers pour les cyclistes de Bordeaux Métropole, en liaison avec les mairies locales.
 
