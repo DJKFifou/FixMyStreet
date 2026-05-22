@@ -1,14 +1,5 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://fixmystreet.maximelust.fr">
@@ -24,44 +15,19 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Sommaire</summary>
   <ol>
-    <li>
-      <a href="#à-propos-du-projet">À propos du projet</a>
-      <ul>
-        <li><a href="#construit-avec">Construit avec</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prérequis">Prérequis</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#structure">Structure</a></li>
+    <li><a href="#fonctionnalités">Fonctionnalités</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
   </ol>
 </details>
 
-
-
-<!-- ABOUT THE PROJECT -->
-## À propos du projet
-
-[![Product Name Screen Shot][product-screenshot]](https://fixmystreet.maximelust.fr)
-
-Projet en trio d'étudiants à l'ECV Bordeaux en zème année de Mastère Lead Developer Frontend.
-
-Une application de signalement des défauts routiers pour les cyclistes de Bordeaux Métropole, en liaison avec les mairies locales.
-
-<p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
-
-
-
-### Construit avec
+## Stack
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
@@ -71,20 +37,87 @@ Une application de signalement des défauts routiers pour les cyclistes de Borde
 
 <p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
 
+## Architecture
 
+L'application repose sur **Next.js App Router** avec deux rôles distincts — `user` et `admin` — déterminés à la connexion via le JWT Supabase.
 
-<!-- GETTING STARTED -->
+```
+Browser → Next.js (App Router)
+              ├── Supabase Auth    (session JWT + rôle)
+              ├── Supabase DB      (signalements, statuts)
+              └── Supabase Storage (photos des signalements)
+```
+
+- **Auth** : gérée côté serveur via `@supabase/ssr`. Le rôle `user_role` est encodé dans le JWT et vérifié à chaque layout protégé.
+- **Données** : lues directement depuis le client Supabase (browser ou server selon le contexte). Pas d'API route intermédiaire.
+- **PWA** : Service Worker déclaré dans `/public/sw.js`, manifest généré via `app/manifest.ts`. Nécessite HTTPS en local (`--experimental-https`).
+
+<p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
+
+## Structure
+
+```
+app/
+├── (auth)/               # Groupe de routes non protégées
+│   ├── login/
+│   ├── sign-up/
+│   └── auth/             # Callbacks (mot de passe oublié, mise à jour)
+├── user/
+│   └── reports/          # Liste des signalements (vue utilisateur)
+├── logout/
+├── page.tsx              # Point d'entrée — redirige selon le rôle
+└── types.d.ts            # Types globaux (ReportType, ReportFormData…)
+
+components/
+├── map/                  # MapView, Container, Markers (Leaflet + heatmap)
+├── report-cards/         # ReportCard, ReportDetails, ReportLocation
+├── report-form-manager/  # Étapes du formulaire de signalement
+├── layouts/              # AdminLayout, UserLayout
+├── navigation/           # Navigation + NavigationItem
+├── form/                 # Inputs réutilisables (photo, localisation…)
+└── ui/                   # Composants atomiques (boutons, loader, toasts…)
+
+lib/
+├── supabase/
+│   ├── client.ts         # Client browser + helper withUser()
+│   ├── server.ts         # Client server (SSR)
+│   └── proxy.ts
+└── utils/
+    ├── db.ts             # Mappers catégories & statuts, fetchLatestStatus()
+    ├── date.ts
+    ├── location.ts
+    └── useMapZoom.ts
+```
+
+<p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
+
+## Fonctionnalités
+
+### Utilisateur
+- Formulaire de signalement en **4 étapes** : choix de catégorie → détails (photo + localisation GPS) → récapitulatif → confirmation
+- Catégories disponibles : `Dégât sur la voie`, `Signalisation`, `Éclairage défectueux`, `Encombrement`
+- Consultation de ses propres signalements avec statut en temps réel
+- Installation en PWA (prompt natif, mode hors-ligne basique)
+
+### Administrateur
+- **Carte interactive** (Leaflet) avec clustering de marqueurs et **heatmap** des signalements
+- Panneau de signalements cliquables avec détails complets
+- Suivi des statuts : `Créé` → `Validé` → `En cours` → `Terminé` / `Rejeté`
+
+### Authentification
+- Inscription / connexion par email
+- Réinitialisation et mise à jour du mot de passe
+- Sessions persistantes via `localStorage`
+
+<p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
+
 ## Getting Started
-
-Voici les instructions pour installer et faire tourner l'application en local.
 
 ### Prérequis
 
-Avant d'installer :
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+```sh
+npm install npm@latest -g
+```
 
 ### Installation
 
@@ -92,24 +125,29 @@ Avant d'installer :
    ```sh
    git clone git@github.com:DJKFifou/FixMyStreet.git
    ```
-2. Installez les packages NPM
+
+2. Installez les dépendances
    ```sh
    npm i
    ```
-3. Créez votre fichier `.env` avec les clés API Supabase
-   ```sh
-   echo "<les-clés-API-à-récupérer>" >> .env
+
+3. Créez un fichier `.env` à la racine avec vos clés Supabase
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
    ```
-4. Lancez l'app
+
+4. Lancez l'application
    ```sh
-   npm run dev --experimental-https # flag requis pour faire que le navigateur prenne en compte la PWA
+   npm run dev --experimental-https
    ```
+   > Le flag `--experimental-https` est requis pour que le navigateur active la PWA en local.
 
 <p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
 
+---
+
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: public/paysage-01.jpg
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
