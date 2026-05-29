@@ -26,7 +26,6 @@ export async function fetchLatestPriorities(
     .order("created_at", { ascending: false })
     .limit(1)
     .single();
-  console.log("Fetched priority:", data);
   return data!.priority;
 }
 

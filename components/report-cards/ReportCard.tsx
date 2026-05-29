@@ -54,7 +54,7 @@ const ReportCard = ({
           </button>
         )}
         <div
-          className="relative flex flex-col gap-5"
+          className="relative flex flex-col gap-5 pr-30"
           onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
           <div className="absolute top-0 right-0 flex flex-col gap-2">
