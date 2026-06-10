@@ -39,11 +39,16 @@ Une application de signalement des défauts routiers pour les cyclistes de Borde
 
 ## Stack
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Tailwind][Tailwindcss.com]][Tailwindcss-url]
-* [![Leaflet][Leafletjs.com]][Leafletjs-url]
-* [![Supabase][Supabase.com]][Supabase-url]
+* [![Next][Next.js]][Next-url] \
+Meta framework mature, robuste, pérenne et SEO friendly
+* [![Typescript][Typescript]][Typescript-url] \
+Fort typage et robuste — Favorise la détection des erreurs en amont
+* [![Tailwind][Tailwindcss.com]][Tailwindcss-url] \
+Framework CSS léger et mobile first
+* [![Leaflet][Leafletjs.com]][Leafletjs-url] \
+Carte interactive complète et gratuite
+* [![Supabase][Supabase.com]][Supabase-url] \
+Base de donnée relationnelle, API REST, authentification et stockage de fichiers
 
 <p align="right">(<a href="#readme-top">revenir en haut</a>)</p>
 
@@ -161,8 +166,8 @@ npm install npm@latest -g
 [product-screenshot]: public/paysage-01.jpg
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[Typescript]: https://img.shields.io/badge/Typescript-000000?style=for-the-badge&logo=typescript&logoColor=3178C6
+[Typescript-url]: https://www.typescriptlang.org/
 [Tailwindcss.com]: https://img.shields.io/badge/Tailwindcss-000000?style=for-the-badge&logo=tailwindcss&logoColor=61DAFB
 [Tailwindcss-url]: https://tailwindcss.com/
 [Leafletjs.com]: https://img.shields.io/badge/Leaflet-FFFFFF?style=for-the-badge&logo=leaflet&logoColor=lightgreen
