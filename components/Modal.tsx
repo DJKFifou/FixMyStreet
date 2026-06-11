@@ -5,20 +5,17 @@ import ReportLocation from "./report-cards/ReportLocation";
 import Image from "next/image";
 import BackButtonHeader from "./ui/BackButtonHeader";
 import StatusUpdater from "./ui/reports/StatusUpdater";
-import PrioritiesUpdater from "./ui/reports/PriorityUpdater";
 
 export default function Modal({
   report,
   isOpen,
   onClose,
   onStatusChange,
-  onPrioritiesChange,
 }: {
   report: ReportType;
   isOpen: boolean;
   onClose: () => void;
   onStatusChange?: (status: string) => void;
-  onPrioritiesChange?: (priorities: string) => void;
 }) {
   return (
     <div
@@ -71,12 +68,8 @@ export default function Modal({
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <StatusUpdater report={report} onStatusChange={onStatusChange} />
-          <PrioritiesUpdater
-            report={report}
-            onPrioritiesChange={onPrioritiesChange}
-          />
         </div>
       </div>
     </div>

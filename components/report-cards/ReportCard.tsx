@@ -2,16 +2,11 @@
 
 import { ReportType } from "@/app/types";
 import { formatDate } from "@/lib/utils/date";
-import {
-  reportCategoryMapper,
-  fetchLatestStatus,
-  fetchLatestPriorities,
-} from "@/lib/utils/db";
+import { reportCategoryMapper, fetchLatestStatus } from "@/lib/utils/db";
 import ReportLocation from "./ReportLocation";
 import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import Status from "../ui/reports/Status";
-import Priority from "../ui/reports/Priority";
 import { createClient } from "@/lib/supabase/client";
 
 const ReportCard = ({
@@ -26,15 +21,11 @@ const ReportCard = ({
   const isOverlayCard = Boolean(onClose);
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentStatus, setCurrentStatus] = useState<string | null>(null);
-  const [currentPriorities, setCurrentPriorities] = useState<string | null>(
-    null,
-  );
   const { created_at, lat, lon, category, description } = report;
 
   useEffect(() => {
     const supabase = createClient();
     fetchLatestStatus(supabase, report.id).then(setCurrentStatus);
-    fetchLatestPriorities(supabase, report.id).then(setCurrentPriorities);
   }, [report.id]);
 
   return (
@@ -57,12 +48,9 @@ const ReportCard = ({
           className="relative flex flex-col gap-5"
           onClick={() => (onClick ? onClick() : setModalOpen(true))}
         >
-          <div className="absolute top-0 right-0 flex flex-col gap-2">
+          <div className="absolute top-0 right-0">
             {currentStatus && (
               <Status report={report} statusOverride={currentStatus} />
-            )}
-            {currentPriorities && (
-              <Priority report={report} priorityOverride={currentPriorities} />
             )}
           </div>
 
@@ -94,7 +82,6 @@ const ReportCard = ({
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onStatusChange={setCurrentStatus}
-        onPrioritiesChange={setCurrentPriorities}
       />
     </>
   );
