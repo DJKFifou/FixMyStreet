@@ -66,6 +66,7 @@
   font-style: normal;
 }
 
+// Variables
 @theme {
   --font-sans: "Poppins", "Fallback", sans-serif;
   --font-grotesk: "Grotesk", "Fallback", sans-serif;
